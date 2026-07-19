@@ -1,0 +1,70 @@
+---
+// Miejsce na zdjęcie.
+// Dopóki nie ma pliku, rysuje stylizowane pole lawendy w SVG —
+// dzięki temu strona wygląda dobrze jeszcze przed sesją zdjęciową.
+// Żeby wstawić prawdziwe zdjęcie: wrzuć plik do /public/foto/
+// i podaj <Photo src="/foto/nazwa.jpg" alt="..." />
+const { src, alt = '', label = 'Miejsce na zdjęcie', ratio = '4 / 3', seed = 0 } = Astro.props;
+const rows = [0.42, 0.55, 0.68, 0.82, 1];
+---
+
+{
+  src ? (
+    <img class="photo" src={src} alt={alt} loading="lazy" style={`aspect-ratio:${ratio}`} />
+  ) : (
+    <div class="photo photo--ph" style={`aspect-ratio:${ratio}`} role="img" aria-label={alt || label}>
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id={`sky${seed}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e9e2f2" />
+            <stop offset="100%" stop-color="#f7f1e6" />
+          </linearGradient>
+        </defs>
+        <rect width="400" height="300" fill={`url(#sky${seed})`} />
+        <circle cx={300 + seed * 20} cy="70" r="26" fill="#f3e3c4" opacity=".8" />
+        {rows.map((r, i) => {
+          const y = 300 * r;
+          const h = 300 * (rows[i + 1] ?? 1.14) - y;
+          const tone = ['#b6abd0', '#9d90bd', '#8577a8', '#6b5d93', '#544779'][i];
+          return (
+            <g>
+              <rect x="0" y={y} width="400" height={h + 1} fill={tone} />
+              <rect x="0" y={y} width="400" height={Math.max(2, h * 0.18)} fill="#8b9a76" opacity=".45" />
+            </g>
+          );
+        })}
+      </svg>
+      <span class="photo__tag">{label}</span>
+    </div>
+  )
+}
+
+<style>
+  .photo {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background: var(--paper-3);
+  }
+  .photo--ph {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+  }
+  .photo--ph svg {
+    width: 100%;
+    height: 100%;
+  }
+  .photo__tag {
+    position: absolute;
+    left: 0.75rem;
+    bottom: 0.75rem;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    color: var(--ink-soft);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35em 0.7em;
+    border-radius: 100px;
+  }
+</style>

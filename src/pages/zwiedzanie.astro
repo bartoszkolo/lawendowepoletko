@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import BloomStatus from '../components/BloomStatus.astro';
+import Photo from '../components/Photo.astro';
+import { site, visiting } from '../data/site.js';
+const tel = site.contact.phone.replace(/\s/g, '');
+---
+
+<Base
+  title="Zwiedzanie"
+  description={`Wstęp na pole lawendy w sezonie ${visiting.season}. Godziny otwarcia, cennik biletów, zasady wizyty i dojazd.`}
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Zwiedzanie</p>
+      <h1>Wizyta na polu</h1>
+      <p class="lede">
+        Pole otwieramy w sezonie kwitnienia, czyli mniej więcej {visiting.season}.
+        Dokładny termin zależy od pogody, dlatego status kwitnienia aktualizujemy
+        co tydzień.
+      </p>
+      <div class="mt"><BloomStatus /></div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap grid grid--2">
+      <div>
+        <p class="eyebrow">Godziny otwarcia</p>
+        <h2>Kiedy jesteśmy otwarci</h2>
+        <div class="rows">
+          {visiting.hours.map((h) => (
+            <div><span class="rows__k">{h.days}</span><span class="rows__v">{h.time}</span></div>
+          ))}
+        </div>
+        <p class="hint">
+          Poza sezonem pole jest zamknięte dla zwiedzających, ale produkty można
+          zamówić przez cały rok.
+        </p>
+      </div>
+
+      <div>
+        <p class="eyebrow">Cennik</p>
+        <h2>Bilety</h2>
+        <div class="rows">
+          {visiting.tickets.map((t) => (
+            <div>
+              <span class="rows__k">{t.name}</span>
+              <span class="rows__v">{t.price}</span>
+              {t.note && <span class="rows__note">{t.note}</span>}
+            </div>
+          ))}
+        </div>
+        <p class="hint">Płatność na miejscu — gotówką lub BLIK-iem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Zanim przyjedziesz</p>
+        <h2>Kilka próśb</h2>
+        <ul class="ticks">
+          {visiting.rules.map((r) => <li>{r}</li>)}
+        </ul>
+        <h3 class="mt">Parking</h3>
+        <p>{visiting.parking}</p>
+        <h3>Najlepsza pora dnia</h3>
+        <p>
+          Rano do 10:00 i wieczorem po 18:00 — wtedy światło jest miękkie, jest
+          chłodniej i mniej gości. W południe lawenda pachnie najmocniej, ale
+          warto wziąć kapelusz, bo na polu nie ma cienia.
+        </p>
+      </div>
+      <Photo label="Zdjęcie — ścieżka między rzędami" alt="Ścieżka między rzędami lawendy" seed={2} />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap wrap--narrow center">
+      <h2>Przyjeżdżasz większą grupą?</h2>
+      <p class="lede">
+        Wycieczki, koła gospodyń i wyjazdy firmowe przyjmujemy po wcześniejszym
+        umówieniu — wtedy oprowadzamy po polu i opowiadamy o uprawie.
+      </p>
+      <p><a class="btn" href={`tel:${tel}`}>Zadzwoń: {site.contact.phoneDisplay}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .mt { margin-top: 2rem; }
+  .hint { font-size: 0.9rem; color: var(--ink-faint); margin-top: 1rem; }
+  .split {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    align-items: start;
+  }
+  .center { text-align: center; }
+  .center p { margin-inline: auto; }
+</style>

@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site, events } from '../data/site.js';
+const tel = site.contact.phone.replace(/\s/g, '');
+---
+
+<Base
+  title="Wydarzenia i warsztaty"
+  description="Warsztaty wiankowe, destylacja olejku lawendowego, Święto Lawendy i wizyty grup zorganizowanych."
+>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Wydarzenia</p>
+      <h1>Warsztaty i święto lawendy</h1>
+      <p class="lede">
+        Poza samym zwiedzaniem robimy rzeczy, przy których można ubrudzić ręce.
+        Liczba miejsc jest ograniczona, więc na warsztaty zapisujemy telefonicznie.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="grid grid--2">
+      {
+        events.map((e, i) => (
+          <article class="ev">
+            <Photo ratio="16 / 10" label={`Zdjęcie — ${e.name}`} alt={e.name} seed={i + 4} />
+            <div class="ev__body">
+              <p class="card__meta">{e.when}</p>
+              <h3>{e.name}</h3>
+              <span class="card__price">{e.price}</span>
+              <p>{e.desc}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow center">
+      <h2>Zapisy</h2>
+      <p class="lede">
+        Miejsca rezerwujemy telefonicznie — dzięki temu od razu wiemy, ile osób
+        przygotować materiałów.
+      </p>
+      <p><a class="btn" href={`tel:${tel}`}>{site.contact.phoneDisplay}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .ev {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .ev :global(.photo) { border-radius: 0; }
+  .ev__body { padding: clamp(1.25rem, 3vw, 1.75rem); }
+  .ev__body h3 { margin: 0.35rem 0 0.35rem; }
+  .ev__body p:last-child { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 0; }
+  .center { text-align: center; }
+  .center p { margin-inline: auto; }
+</style>

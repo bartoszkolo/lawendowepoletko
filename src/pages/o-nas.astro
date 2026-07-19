@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { visiting } from '../data/site.js';
+---
+
+<Base
+  title="O nas"
+  description="Rodzinne pole lawendy o powierzchni hektara — jak powstało, jak uprawiamy i co dzieje się na polu przez cały rok."
+>
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">O nas</p>
+        <h1>Pole po mamie</h1>
+        <p class="lede">
+          Nie planowaliśmy hektara. Mama posadziła lawendę, bo lubiła, jak pachnie
+          wieczorem przy domu. Reszta wydarzyła się sama.
+        </p>
+      </div>
+      <Photo ratio="3 / 4" label="Zdjęcie — portret mamy / gospodarza" alt="Gospodarze pola" seed={8} />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap wrap--narrow">
+      <h2>Jak to się zaczęło</h2>
+      <p>
+        Pierwsze krzaki wylądowały przy płocie. Przyjęły się lepiej, niż ktokolwiek
+        się spodziewał — lawenda lubi to, czego u nas w bród: słońce, przewiewne
+        stanowisko i ziemię, która nie trzyma wody. Po kilku latach zajmowała już
+        cały kawałek pola, na którym wcześniej nic sensownego nie chciało rosnąć.
+      </p>
+      <p>
+        Dziś to hektar, kilkanaście tysięcy krzaków w równych rzędach. Prowadzę je
+        dalej razem z rodziną, w tym samym rytmie, którego nauczyła nas mama.
+      </p>
+
+      <h2 class="mt">Jak uprawiamy</h2>
+      <ul class="ticks">
+        <li>Bez oprysków chemicznych — chwasty wychodzą ręcznie i mechanicznie.</li>
+        <li>Zbiór sierpem i sekatorem, snopek po snopku, zawsze w suchy dzień.</li>
+        <li>Suszenie w przewiewnej stodole, w cieniu — na słońcu kwiat traci kolor i olejek.</li>
+        <li>Destylacja małymi partiami, z tego samego zbioru co susz.</li>
+        <li>Ule stoją tuż przy polu, więc miód jest naprawdę lawendowy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Rok na polu</p>
+      <h2>Co się u nas dzieje przez cały rok</h2>
+      <div class="grid grid--2 year">
+        <div class="card">
+          <p class="card__meta">Marzec – maj</p>
+          <h3>Cięcie i sadzenie</h3>
+          <p>Przycinamy krzaki, uzupełniamy wypady i sprzedajemy sadzonki. Pole jest jeszcze srebrno-zielone.</p>
+        </div>
+        <div class="card">
+          <p class="card__meta">{visiting.season}</p>
+          <h3>Kwitnienie</h3>
+          <p>Pole otwarte dla gości, sesje zdjęciowe, warsztaty i Święto Lawendy. Najintensywniejsze tygodnie w roku.</p>
+        </div>
+        <div class="card">
+          <p class="card__meta">Lipiec – sierpień</p>
+          <h3>Zbiór i destylacja</h3>
+          <p>Ścinamy, suszymy, destylujemy. Wtedy powstaje olejek i hydrolat na cały nadchodzący rok.</p>
+        </div>
+        <div class="card">
+          <p class="card__meta">Wrzesień – luty</p>
+          <h3>Warsztat i zamówienia</h3>
+          <p>Pole odpoczywa, my wiążemy bukiety, szyjemy saszetki i realizujemy zamówienia wysyłkowe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    align-items: center;
+  }
+  .mt { margin-top: 3rem; }
+  .year .card__meta { margin: 0 0 0.4rem; }
+</style>

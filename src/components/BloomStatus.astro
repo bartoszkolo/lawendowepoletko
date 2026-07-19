@@ -1,0 +1,67 @@
+---
+import { bloom, bloomLabels } from '../data/site.js';
+const s = bloomLabels[bloom.stage] ?? bloomLabels.przed;
+const updated = new Date(bloom.updated).toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+});
+---
+
+<div class={`bloom bloom--${s.tone}`}>
+  <span class="bloom__dot" aria-hidden="true"></span>
+  <div>
+    <strong>{s.label}</strong>
+    <span class="bloom__note">{bloom.note}</span>
+    <span class="bloom__date">Sprawdzone {updated}</span>
+  </div>
+</div>
+
+<style>
+  .bloom {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper);
+    max-width: 34rem;
+  }
+  .bloom__dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    flex: none;
+    margin-top: 0.45rem;
+  }
+  .bloom--peak .bloom__dot {
+    background: var(--lavender);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--lavender) 22%, transparent);
+  }
+  .bloom--soon .bloom__dot {
+    background: var(--honey);
+  }
+  .bloom--wait .bloom__dot {
+    background: var(--ink-faint);
+  }
+  .bloom strong {
+    display: block;
+    font-family: var(--display);
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .bloom__note {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .bloom__date {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+</style>

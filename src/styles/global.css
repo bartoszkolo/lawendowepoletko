@@ -1,0 +1,312 @@
+/* ─────────────────────────────────────────────────────────────
+   Lawendowe Poletko — system wizualny
+
+   Kolory nie są "fioletowe wszędzie". Bazą jest ciepły, wapienny
+   papier (tak wygląda ziemia i światło na polu w lipcu), lawenda
+   pojawia się punktowo jako akcent, a zieleń jest szałwiowa —
+   taki kolor mają naprawdę liście lawendy, nie trawiasty zielony.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* powierzchnie */
+  --paper: #faf7f1;
+  --paper-2: #f2ece1;
+  --paper-3: #e8e0d2;
+
+  /* tekst */
+  --ink: #262233;
+  --ink-soft: #5a5368;
+  --ink-faint: #8b8496;
+
+  /* akcenty */
+  --lavender: #6b5d93;
+  --lavender-deep: #443b62;
+  --lavender-pale: #ded7ec;
+  --sage: #7e8b6c;
+  --honey: #b5822f;
+
+  --line: #ded5c6;
+
+  /* typografia */
+  --display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --body: 'Karla', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* rytm */
+  --measure: 62ch;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --section: clamp(4rem, 10vw, 7.5rem);
+  --radius: 3px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: clamp(1rem, 0.97rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 1.6rem + 4.2vw, 4.75rem);
+}
+h2 {
+  font-size: clamp(1.85rem, 1.4rem + 2vw, 2.9rem);
+}
+h3 {
+  font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+}
+
+p {
+  margin: 0 0 1.1em;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--lavender-deep);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  color: var(--lavender);
+}
+
+/* ── układ ─────────────────────────────────────────────────── */
+
+.wrap {
+  width: min(72rem, 100%);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.wrap--narrow {
+  width: min(46rem, 100%);
+}
+
+.section {
+  padding-block: var(--section);
+}
+.section--tint {
+  background: var(--paper-2);
+}
+
+/* nadtytuł — mała kapitalikowa etykieta nad nagłówkiem */
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sage);
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.lede {
+  font-size: clamp(1.1rem, 1.02rem + 0.4vw, 1.3rem);
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+.grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+/* ── przyciski ─────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85em 1.6em;
+  border: 1px solid var(--lavender-deep);
+  border-radius: var(--radius);
+  background: var(--lavender-deep);
+  color: var(--paper);
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.btn:hover {
+  background: var(--lavender);
+  border-color: var(--lavender);
+  color: var(--paper);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--lavender-deep);
+}
+.btn--ghost:hover {
+  background: var(--lavender-pale);
+  border-color: var(--lavender-deep);
+  color: var(--lavender-deep);
+}
+
+/* ── karty ─────────────────────────────────────────────────── */
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+.card h3 {
+  margin-bottom: 0.35em;
+}
+.card p {
+  color: var(--ink-soft);
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+.card__price {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  color: var(--honey);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+.card__meta {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.25em 0.7em;
+  border-radius: 100px;
+  background: var(--lavender-pale);
+  color: var(--lavender-deep);
+}
+
+/* ── listy z ptaszkiem ─────────────────────────────────────── */
+
+.ticks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: var(--measure);
+}
+.ticks li {
+  padding-left: 1.6rem;
+  position: relative;
+  margin-bottom: 0.7rem;
+  color: var(--ink-soft);
+}
+.ticks li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+/* ── tabelka (godziny, cennik) ─────────────────────────────── */
+
+.rows {
+  border-top: 1px solid var(--line);
+}
+.rows > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.rows dt,
+.rows .rows__k {
+  font-weight: 700;
+}
+.rows .rows__v {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--honey);
+}
+.rows .rows__note {
+  flex-basis: 100%;
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+}
+
+/* ── dostępność ────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--lavender);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  background: var(--paper);
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ink);
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

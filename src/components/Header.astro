@@ -1,0 +1,126 @@
+---
+import { site, nav } from '../data/site.js';
+const path = Astro.url.pathname;
+---
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href="/">
+      <svg width="26" height="30" viewBox="0 0 26 30" aria-hidden="true">
+        <path d="M13 29V13" stroke="var(--sage)" stroke-width="1.6" fill="none" />
+        <path d="M13 17c-4-1-6-4-6-7 3 0 6 2 6 5zM13 17c4-1 6-4 6-7-3 0-6 2-6 5z" fill="var(--sage)" opacity=".55" />
+        <ellipse cx="13" cy="6.5" rx="4" ry="6.5" fill="var(--lavender)" />
+        <ellipse cx="13" cy="4" rx="2" ry="3.2" fill="var(--lavender-pale)" opacity=".7" />
+      </svg>
+      <span>{site.name}</span>
+    </a>
+
+    <input type="checkbox" id="navtoggle" class="sr" />
+    <label for="navtoggle" class="hdr__burger">
+      <span class="sr">Menu</span>
+      <span aria-hidden="true"></span>
+    </label>
+
+    <nav class="hdr__nav" aria-label="Główne">
+      {
+        nav.map((i) => (
+          <a href={i.href} aria-current={path.startsWith(i.href) ? 'page' : undefined}>
+            {i.label}
+          </a>
+        ))
+      }
+      <a class="btn hdr__cta" href={`tel:${site.contact.phone.replace(/\s/g, '')}`}>
+        {site.contact.phoneDisplay}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .hdr__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 4.5rem;
+    flex-wrap: wrap;
+  }
+  .hdr__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--display);
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .hdr__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  .hdr__nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .hdr__nav a:hover,
+  .hdr__nav a[aria-current] {
+    color: var(--lavender-deep);
+  }
+  .hdr__nav a[aria-current] {
+    font-weight: 700;
+  }
+  .hdr__cta {
+    padding: 0.6em 1.1em;
+    font-size: 0.9rem;
+  }
+  .hdr__cta,
+  .hdr__cta:hover {
+    color: var(--paper);
+  }
+
+  .hdr__burger {
+    display: none;
+    cursor: pointer;
+    padding: 0.6rem 0;
+  }
+  .hdr__burger span[aria-hidden] {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    box-shadow: 0 7px 0 var(--ink), 0 -7px 0 var(--ink);
+  }
+
+  /* 6 pozycji + numer telefonu przestają się mieścić w jednym rzędzie
+     sporo powyżej klasycznego progu tabletu — stąd 68rem, nie 48rem */
+  @media (max-width: 68rem) {
+    .hdr__burger {
+      display: block;
+    }
+    .hdr__nav {
+      display: none;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding-bottom: 1.5rem;
+    }
+    #navtoggle:checked ~ .hdr__nav {
+      display: flex;
+    }
+    .hdr__nav a {
+      font-size: 1.05rem;
+    }
+  }
+</style>

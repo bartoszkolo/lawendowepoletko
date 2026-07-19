@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { site, sessions } from '../data/site.js';
+const tel = site.contact.phone.replace(/\s/g, '');
+---
+
+<Base
+  title="Sesje zdjęciowe"
+  description="Sesje ślubne, rodzinne i ciążowe na polu lawendy. Pole na wyłączność, cennik i terminy."
+>
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Sesje zdjęciowe</p>
+        <h1>Kadr, który pachnie</h1>
+        <p class="lede">
+          Kwitnąca lawenda to jedno z niewielu tł, które nie wymaga niczego więcej.
+          Na czas sesji zamykamy wybrany fragment pola tylko dla Was — żeby w
+          kadrze nie było przypadkowych osób.
+        </p>
+        <p>
+          Przyjeżdżacie z własnym fotografem. Jeśli go nie macie, podpowiemy
+          kogoś z okolicy, kto zna to pole i wie, gdzie o której godzinie
+          najlepiej pada światło.
+        </p>
+      </div>
+      <Photo ratio="3 / 4" label="Zdjęcie — para na polu" alt="Sesja ślubna na polu lawendy" seed={3} />
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <p class="eyebrow">Cennik</p>
+      <h2>Rodzaje sesji</h2>
+      <div class="grid grid--3">
+        {
+          sessions.map((s) => (
+            <article class="card">
+              <h3>{s.name}</h3>
+              <span class="card__price">{s.price}</span>
+              <p class="card__meta">{s.duration}</p>
+              <p>{s.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="hint">
+        Cena dotyczy udostępnienia pola, nie obejmuje pracy fotografa.
+        Do sesji doliczamy wstęp dla osób towarzyszących.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Dobrze wiedzieć</p>
+      <h2>Jak umówić sesję</h2>
+      <ol class="steps">
+        <li><strong>Zadzwoń albo napisz.</strong> Podaj przybliżony termin i liczbę osób.</li>
+        <li><strong>Ustalamy godzinę.</strong> Najładniejsze światło jest do 9:00 i po 18:30 — te terminy schodzą pierwsze.</li>
+        <li><strong>Rezerwujemy pole.</strong> Wysyłamy potwierdzenie i dokładny punkt zbiórki.</li>
+        <li><strong>Przyjeżdżacie.</strong> Płatność na miejscu, przed sesją.</li>
+      </ol>
+      <ul class="ticks mt">
+        <li>Sezon jest krótki — na lipcowe weekendy warto dzwonić już w maju.</li>
+        <li>Przy deszczu przekładamy termin bez dodatkowych kosztów.</li>
+        <li>Obuwie: pole jest nierówne, szpilki się nie sprawdzają.</li>
+        <li>Uwaga na pszczoły — jest ich w lawendzie sporo i są zajęte swoim.</li>
+      </ul>
+      <p class="mt"><a class="btn" href={`tel:${tel}`}>Umów sesję: {site.contact.phoneDisplay}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    align-items: center;
+  }
+  .hint { font-size: 0.9rem; color: var(--ink-faint); margin-top: 2rem; }
+  .mt { margin-top: 2rem; }
+  .steps {
+    counter-reset: s;
+    list-style: none;
+    padding: 0;
+    max-width: var(--measure);
+  }
+  .steps li {
+    counter-increment: s;
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.4rem;
+    color: var(--ink-soft);
+  }
+  .steps li::before {
+    content: counter(s);
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lavender-pale);
+    color: var(--lavender-deep);
+    font-family: var(--display);
+    font-size: 1rem;
+  }
+  .steps strong { color: var(--ink); }
+</style>

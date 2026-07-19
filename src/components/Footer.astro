@@ -1,0 +1,97 @@
+---
+import { site, nav, visiting } from '../data/site.js';
+const year = new Date().getFullYear();
+const tel = site.contact.phone.replace(/\s/g, '');
+---
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <div>
+      <h3>{site.name}</h3>
+      <p>{site.tagline}. Hektar lawendy uprawiany rodzinnie, sezon {visiting.season}.</p>
+    </div>
+
+    <div>
+      <h4>Kontakt</h4>
+      <p>
+        <a href={`tel:${tel}`}>{site.contact.phoneDisplay}</a><br />
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a><br />
+        {site.address.street}<br />
+        {site.address.postalCode} {site.address.city}
+      </p>
+      {
+        (site.contact.facebook || site.contact.instagram) && (
+          <p>
+            {site.contact.facebook && <a href={site.contact.facebook}>Facebook</a>}
+            {site.contact.facebook && site.contact.instagram && ' · '}
+            {site.contact.instagram && <a href={site.contact.instagram}>Instagram</a>}
+          </p>
+        )
+      }
+    </div>
+
+    <div>
+      <h4>Strona</h4>
+      <ul>
+        {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap ftr__base">
+    <span>© {year} {site.name}</span>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--paper-2);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+    margin-top: var(--section);
+  }
+  .ftr__in {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  }
+  .ftr h3 {
+    font-size: 1.35rem;
+  }
+  .ftr h4 {
+    font-family: var(--body);
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin: 0 0 0.9rem;
+  }
+  .ftr p,
+  .ftr li {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .ftr ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ftr li {
+    margin-bottom: 0.45rem;
+  }
+  .ftr a {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .ftr a:hover {
+    color: var(--lavender-deep);
+    text-decoration: underline;
+  }
+  .ftr__base {
+    margin-top: 3rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+</style>
