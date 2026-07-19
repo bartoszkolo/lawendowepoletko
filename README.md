@@ -54,9 +54,11 @@ Każdy push na `main` deployuje się automatycznie.
 
 ## Do uzupełnienia przed publikacją
 
-- [ ] prawdziwy telefon, e-mail i adres w `site.js`
-- [ ] współrzędne pola (`site.address.lat` / `lng`) — Google Maps → prawy klik → kopiuj współrzędne
+- [x] telefon i adres w `site.js`
+- [ ] adres e-mail (teraz jest zmyślony placeholder `kontakt@lawendowepoletko.pl`)
+- [ ] współrzędne pola (`site.address.lat` / `lng`) — opcjonalne, mapa działa bez nich
 - [ ] realne ceny biletów, sesji i produktów
+- [ ] zdjąć status „Tymczasowo zamknięte" z wizytówki Google
 - [ ] zdjęcia z pola
 - [ ] `public/og.jpg` (1200×630) — miniaturka do udostępniania na Facebooku
 - [ ] wizytówka Google Business Profile podpięta pod ten adres

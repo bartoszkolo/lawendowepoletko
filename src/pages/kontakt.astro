@@ -4,9 +4,14 @@ import BloomStatus from '../components/BloomStatus.astro';
 import { site, visiting } from '../data/site.js';
 
 const tel = site.contact.phone.replace(/\s/g, '');
-const { lat, lng } = site.address;
-const mapEmbed = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.012},${lat - 0.008},${lng + 0.012},${lat + 0.008}&layer=mapnik&marker=${lat},${lng}`;
-const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+// Mapa i nawigacja jadą po nazwie i adresie, nie po współrzędnych —
+// dzięki temu trafiają dokładnie w wizytówkę Google, którą prowadzicie.
+const query = encodeURIComponent(
+  `${site.name}, ${site.address.street}, ${site.address.postalCode} ${site.address.city}`
+);
+const mapEmbed = `https://maps.google.com/maps?q=${query}&z=13&hl=pl&output=embed`;
+const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${query}`;
 ---
 
 <Base

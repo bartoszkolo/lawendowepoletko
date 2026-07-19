@@ -27,11 +27,17 @@ const jsonLd = {
     addressRegion: site.address.region,
     addressCountry: 'PL',
   },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: site.address.lat,
-    longitude: site.address.lng,
-  },
+  // Lepiej nie podać współrzędnych, niż podać zgadywane —
+  // błędne geo w danych strukturalnych wysyła ludzi w złe miejsce.
+  ...(site.address.lat && site.address.lng
+    ? {
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: site.address.lat,
+          longitude: site.address.lng,
+        },
+      }
+    : {}),
 };
 ---
 

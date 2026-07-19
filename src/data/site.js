@@ -13,24 +13,27 @@ export const site = {
     'Lawendowe Poletko — rodzinne pole lawendy o powierzchni hektara. ' +
     'Zwiedzanie w sezonie kwitnienia, sesje zdjęciowe, warsztaty i produkty prosto z pola.',
 
-  // TODO: uzupełnij prawdziwymi danymi
   contact: {
-    phone: '+48 000 000 000',
-    phoneDisplay: '000 000 000',
+    phone: '+48 505 027 868',
+    phoneDisplay: '505 027 868',
+    // TODO: podmień na docelowy adres e-mail
     email: 'kontakt@lawendowepoletko.pl',
     facebook: '',
     instagram: '',
   },
 
-  // TODO: uzupełnij prawdziwym adresem — to jest kluczowe dla Google Maps
   address: {
-    street: 'ul. Przykładowa 1',
-    postalCode: '00-000',
-    city: 'Miejscowość',
+    street: 'Skrzetuszewo 31c',
+    postalCode: '62-265',
+    city: 'Sławno',
     region: 'wielkopolskie',
-    // współrzędne pola (Google Maps → prawy klik → kopiuj współrzędne)
-    lat: 52.5352,
-    lng: 17.5825,
+    // Mapa i trasa działają na podstawie adresu powyżej, więc współrzędne
+    // nie są potrzebne do działania strony — służą tylko danym
+    // strukturalnym dla Google. Zostaw null, dopóki nie odczytasz
+    // dokładnego punktu: Google Maps → prawy klik na wjazd na pole →
+    // kliknij współrzędne, żeby je skopiować.
+    lat: null,
+    lng: null,
   },
 };
 
