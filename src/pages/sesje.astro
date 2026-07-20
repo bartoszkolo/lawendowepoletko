@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import { site, sessions } from '../data/site.js';
+import sesjaSlubna from '../assets/foto/sesja-slubna.jpg';
 const tel = site.contact.phone.replace(/\s/g, '');
 ---
 
@@ -25,7 +26,11 @@ const tel = site.contact.phone.replace(/\s/g, '');
           najlepiej pada światło.
         </p>
       </div>
-      <Photo ratio="3 / 4" label="Zdjęcie — para na polu" alt="Sesja ślubna na polu lawendy" seed={3} />
+      <Photo
+        img={sesjaSlubna}
+        ratio="3 / 2"
+        alt="Para młoda leżąca wśród rzędów lawendy, kadr z drona z góry"
+      />
     </div>
   </section>
 

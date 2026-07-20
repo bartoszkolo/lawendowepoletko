@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import BloomStatus from '../components/BloomStatus.astro';
 import Photo from '../components/Photo.astro';
 import { site, visiting } from '../data/site.js';
+import lawka from '../assets/foto/lawka-miedzy-rzedami.jpg';
 const tel = site.contact.phone.replace(/\s/g, '');
 ---
 
@@ -73,7 +74,11 @@ const tel = site.contact.phone.replace(/\s/g, '');
           warto wziąć kapelusz, bo na polu nie ma cienia.
         </p>
       </div>
-      <Photo label="Zdjęcie — ścieżka między rzędami" alt="Ścieżka między rzędami lawendy" seed={2} />
+      <Photo
+        img={lawka}
+        ratio="4 / 3"
+        alt="Biała ławka ustawiona na ścieżce między rzędami kwitnącej lawendy"
+      />
     </div>
   </section>
 

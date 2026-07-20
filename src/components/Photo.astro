@@ -1,16 +1,42 @@
 ---
+import { Image } from 'astro:assets';
+
 // Miejsce na zdjęcie.
-// Dopóki nie ma pliku, rysuje stylizowane pole lawendy w SVG —
-// dzięki temu strona wygląda dobrze jeszcze przed sesją zdjęciową.
-// Żeby wstawić prawdziwe zdjęcie: wrzuć plik do /public/foto/
-// i podaj <Photo src="/foto/nazwa.jpg" alt="..." />
-const { src, alt = '', label = 'Miejsce na zdjęcie', ratio = '4 / 3', seed = 0 } = Astro.props;
+//
+// Z prawdziwym zdjęciem: zaimportuj plik z src/assets/foto/ i podaj go
+// jako `img` — Astro samo zrobi WebP, przeskaluje i doda wymiary,
+// żeby strona nie skakała przy ładowaniu.
+//   import pole from '../assets/foto/pole-z-lotu-ptaka.jpg';
+//   <Photo img={pole} alt="..." />
+//
+// Bez zdjęcia rysuje stylizowane pole lawendy w SVG, żeby układ strony
+// nie miał dziur, dopóki fotki nie dojdą.
+const {
+  img,
+  alt = '',
+  label = 'Miejsce na zdjęcie',
+  ratio = '4 / 3',
+  seed = 0,
+  widths = [640, 1024, 1600],
+  sizes = '(max-width: 60rem) 100vw, 50vw',
+  priority = false,
+} = Astro.props;
+
 const rows = [0.42, 0.55, 0.68, 0.82, 1];
 ---
 
 {
-  src ? (
-    <img class="photo" src={src} alt={alt} loading="lazy" style={`aspect-ratio:${ratio}`} />
+  img ? (
+    <Image
+      class="photo"
+      src={img}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : undefined}
+      style={`aspect-ratio:${ratio}`}
+    />
   ) : (
     <div class="photo photo--ph" style={`aspect-ratio:${ratio}`} role="img" aria-label={alt || label}>
       <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">

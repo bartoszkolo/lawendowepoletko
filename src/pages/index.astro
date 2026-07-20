@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import BloomStatus from '../components/BloomStatus.astro';
 import Photo from '../components/Photo.astro';
 import { site, visiting, products, events } from '../data/site.js';
+import zachodSlonca from '../assets/foto/lawenda-zachod-slonca.jpg';
+import zLotuPtaka from '../assets/foto/pole-z-lotu-ptaka.jpg';
 
 const tel = site.contact.phone.replace(/\s/g, '');
 ---
@@ -10,7 +12,14 @@ const tel = site.contact.phone.replace(/\s/g, '');
 <Base>
   <!-- ── HERO ─────────────────────────────────────────────── -->
   <section class="hero">
-    <Photo ratio="16 / 9" label="Zdjęcie główne — pole w pełnym kwitnieniu" alt="Pole lawendy" />
+    <Photo
+      img={zachodSlonca}
+      ratio="16 / 9"
+      alt="Kwitnąca lawenda z bliska, w tle zachodzące słońce nad polem"
+      sizes="100vw"
+      widths={[800, 1400, 2048]}
+      priority
+    />
     <div class="hero__panel">
       <div class="wrap">
         <p class="eyebrow">Hektar lawendy · {visiting.season}</p>
@@ -80,7 +89,11 @@ const tel = site.contact.phone.replace(/\s/g, '');
         </p>
         <a class="btn btn--ghost" href="/o-nas/">Poznaj nas bliżej</a>
       </div>
-      <Photo label="Zdjęcie — mama / rodzina przy lawendzie" alt="Rodzina na polu lawendy" seed={1} />
+      <Photo
+        img={zLotuPtaka}
+        ratio="3 / 2"
+        alt="Widok z drona na gospodarstwo i rzędy lawendy o zachodzie słońca"
+      />
     </div>
   </section>
 
