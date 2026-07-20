@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import BloomStatus from '../components/BloomStatus.astro';
+import Socials from '../components/Socials.astro';
 import { site, visiting } from '../data/site.js';
 
 const tel = site.contact.phone.replace(/\s/g, '');
@@ -40,6 +41,15 @@ const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${query}`;
         <p class="btns">
           <a class="btn" href={mapLink} target="_blank" rel="noopener">Wyznacz trasę</a>
         </p>
+
+        <div class="soc-block">
+          <p class="eyebrow">Znajdziesz nas też tutaj</p>
+          <p class="soc-note">
+            Aktualne zdjęcia z pola wrzucamy na bieżąco w sezonie — tam najszybciej
+            zobaczysz, jak w danym tygodniu wygląda lawenda.
+          </p>
+          <Socials variant="list" />
+        </div>
       </div>
 
       <div>
@@ -93,6 +103,16 @@ const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${query}`;
   .contact { margin-top: 2rem; }
   .contact a { font-family: var(--display); font-size: 1.15rem; }
   .btns { margin-top: 2rem; }
+  .soc-block {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+  .soc-note {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
   .hours { margin-top: 2rem; }
   .hours__row {
     display: flex;

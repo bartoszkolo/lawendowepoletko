@@ -1,5 +1,6 @@
 ---
 import { site, nav, visiting } from '../data/site.js';
+import Socials from './Socials.astro';
 const year = new Date().getFullYear();
 const tel = site.contact.phone.replace(/\s/g, '');
 ---
@@ -9,6 +10,7 @@ const tel = site.contact.phone.replace(/\s/g, '');
     <div>
       <h3>{site.name}</h3>
       <p>{site.tagline}. Hektar lawendy uprawiany rodzinnie, sezon {visiting.season}.</p>
+      <Socials />
     </div>
 
     <div>
@@ -19,15 +21,6 @@ const tel = site.contact.phone.replace(/\s/g, '');
         {site.address.street}<br />
         {site.address.postalCode} {site.address.city}
       </p>
-      {
-        (site.contact.facebook || site.contact.instagram) && (
-          <p>
-            {site.contact.facebook && <a href={site.contact.facebook}>Facebook</a>}
-            {site.contact.facebook && site.contact.instagram && ' · '}
-            {site.contact.instagram && <a href={site.contact.instagram}>Instagram</a>}
-          </p>
-        )
-      }
     </div>
 
     <div>

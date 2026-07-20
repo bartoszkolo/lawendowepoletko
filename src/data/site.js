@@ -18,8 +18,6 @@ export const site = {
     phoneDisplay: '505 027 868',
     // TODO: podmień na docelowy adres e-mail
     email: 'kontakt@lawendowepoletko.pl',
-    facebook: '',
-    instagram: '',
   },
 
   address: {
@@ -36,6 +34,27 @@ export const site = {
     lng: null,
   },
 };
+
+// ─── Social media ─────────────────────────────────────────────
+// Kolejność z tej listy decyduje o kolejności ikon w stopce.
+// `handle` pokazuje się przy ikonie na stronie kontaktu.
+export const socials = [
+  {
+    name: 'Facebook',
+    handle: '@lawendowepoletko',
+    url: 'https://www.facebook.com/lawendowepoletko/',
+  },
+  {
+    name: 'Instagram',
+    handle: '@lawendowe_poletko',
+    url: 'https://www.instagram.com/lawendowe_poletko/',
+  },
+  {
+    name: 'TikTok',
+    handle: '@lawendowepoletkoPL',
+    url: 'https://www.tiktok.com/@lawendowepoletkoPL',
+  },
+];
 
 // ─── Status kwitnienia ────────────────────────────────────────
 // Najważniejsza informacja na całej stronie. Ludzie przyjeżdżają
