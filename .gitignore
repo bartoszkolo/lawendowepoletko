@@ -1,6 +1,7 @@
+# pozostałości po projekcie Astro (żyje na branchu `pelna-strona`)
 node_modules/
 dist/
 .astro/
-.env
-.env.production
+
 .DS_Store
+Thumbs.db
