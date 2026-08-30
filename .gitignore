@@ -4,3 +4,8 @@ dist/
 .shots/
 .DS_Store
 npm-debug.log*
+.dev.vars
+.env
+.env.local
+.env.*.local
+.vercel/

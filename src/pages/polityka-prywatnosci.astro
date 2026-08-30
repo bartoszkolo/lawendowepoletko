@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { SITE } from "../data/site";
+---
+
+<Base
+  title="Polityka prywatności | Lawendowe Poletko"
+  description="Informacje o przetwarzaniu danych osobowych i prywatności użytkowników strony Lawendowego Poletka."
+  path="/polityka-prywatnosci"
+>
+  <PageHero eyebrow="Twoje dane" lead="Poniżej wyjaśniamy, jakie dane zbieramy przez stronę, po co ich potrzebujemy i jakie masz prawa.">
+    Polityka <em class="text-lav-200">prywatności.</em>
+  </PageHero>
+
+  <article class="prose-lav wrap max-w-3xl py-20 sm:py-28">
+    <p><strong>Ostatnia aktualizacja: 30 sierpnia 2026 r.</strong></p>
+
+    <h2>Administrator danych</h2>
+    <p>
+      Administratorem danych przekazywanych przez stronę jest {SITE.name}, {SITE.street}, {SITE.postalCode} {SITE.locality}.
+      W sprawach dotyczących prywatności możesz napisać na <a class="text-link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>Formularz kontaktowy</h2>
+    <p>
+      Gdy wysyłasz wiadomość, przetwarzamy podane imię, adres e-mail, opcjonalny numer telefonu, temat i treść
+      wiadomości. Dane wykorzystujemy wyłącznie do udzielenia odpowiedzi, prowadzenia korespondencji i obsługi
+      Twojego zapytania.
+    </p>
+
+    <h2>Informacje o sezonie i kawiarni</h2>
+    <p>
+      Jeżeli dobrowolnie zapiszesz się na aktualności, użyjemy adresu e-mail do przesyłania informacji o sezonie,
+      wydarzeniach, produktach i planowanej kawiarni. Zgodę możesz wycofać w każdej chwili przez link rezygnacji w
+      wiadomości albo kontakt z nami.
+    </p>
+
+    <h2>Dostawcy usług</h2>
+    <p>
+      Strona korzysta z infrastruktury Cloudflare, a wiadomości formularzy i lista kontaktów mogą być obsługiwane
+      przez Resend. Dostawcy przetwarzają dane w zakresie potrzebnym do utrzymania strony i dostarczania wiadomości.
+      Osadzona mapa Google może otrzymywać podstawowe dane techniczne przeglądarki dopiero podczas jej wczytania.
+    </p>
+
+    <h2>Jak długo przechowujemy dane</h2>
+    <p>
+      Korespondencję przechowujemy przez okres potrzebny do obsługi sprawy i zabezpieczenia ewentualnych roszczeń.
+      Dane do wysyłki aktualności przechowujemy do czasu wycofania zgody lub zakończenia prowadzenia listy.
+    </p>
+
+    <h2>Twoje prawa</h2>
+    <p>
+      Możesz poprosić o dostęp do danych, ich sprostowanie, usunięcie, ograniczenie przetwarzania lub wycofać zgodę.
+      Masz również prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych.
+    </p>
+
+    <h2>Pliki cookies i analityka</h2>
+    <p>
+      Sama strona nie używa obecnie cookies reklamowych. Jeżeli w przyszłości dodamy narzędzia wymagające zgody,
+      przed ich uruchomieniem pojawi się odpowiedni mechanizm wyboru.
+    </p>
+  </article>
+</Base>

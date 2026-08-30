@@ -5,6 +5,7 @@ pod Gnieznem. Wersja 1: strona wizytowa + blog (poradnik), przygotowana pod
 rozbudowę o sklep, newsletter i rezerwacje.
 
 **Plan rozwoju, SEO i social media:** [docs/STRATEGIA.md](docs/STRATEGIA.md)
+**Architektura sklepu headless:** [docs/SKLEP-HEADLESS.md](docs/SKLEP-HEADLESS.md)
 
 ## Stack
 
@@ -33,7 +34,21 @@ src/
 public/                 ← pole.jpg (hero), og.jpg (udostępnianie), favicon, robots.txt
 scripts/capture.mjs     ← zrzuty QA wszystkich stron do .shots/ (wymaga uruchomionego preview)
 docs/STRATEGIA.md       ← strategia: stack, konkurencja, SEO, social, roadmapa
+functions/api/lead.js   ← formularz kontaktowy + zapisy przez Resend
 ```
+
+## Formularze i Resend
+
+Formularz kontaktowy oraz zapisy na sezon/kawiarnię korzystają z Cloudflare
+Pages Functions. Skopiuj `.dev.vars.example` jako `.dev.vars` i uzupełnij:
+
+- `RESEND_API_KEY` — klucz API Resend,
+- `RESEND_FROM` — nadawca w zweryfikowanej domenie,
+- `CONTACT_EMAIL` — skrzynka odbierająca formularze,
+- `RESEND_SEGMENT_ID` — opcjonalny segment dla listy zainteresowanych.
+
+Sam `astro dev` renderuje formularze, ale nie uruchamia katalogu `functions`.
+Pełny test lokalny wykonuj przez Cloudflare Pages/Wrangler po zbudowaniu strony.
 
 ## Dodanie artykułu
 

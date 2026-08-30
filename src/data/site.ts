@@ -11,7 +11,8 @@ export const SITE = {
   postalCode: "62-265",
   locality: "Skrzetuszewo",
   region: "wielkopolskie",
-  mapUrl: "https://maps.google.com/?q=Skrzetuszewo+31c,+62-265+Skrzetuszewo",
+  mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Skrzetuszewo+31c%2C+62-265+Skrzetuszewo",
+  mapEmbedUrl: "https://www.google.com/maps?q=Skrzetuszewo+31c%2C+62-265+Skrzetuszewo&output=embed",
   socials: {
     facebook: "https://www.facebook.com/lawendowepoletko/",
     instagram: "https://www.instagram.com/lawendowe_poletko/",
@@ -24,5 +25,6 @@ export const NAV = [
   { href: "/odwiedz", label: "Odwiedź" },
   { href: "/sesje", label: "Sesje" },
   { href: "/produkty", label: "Produkty" },
+  { href: "/kawiarnia", label: "Kawiarnia 2027" },
   { href: "/poradnik", label: "Poradnik" },
 ] as const;

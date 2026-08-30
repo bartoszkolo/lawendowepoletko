@@ -26,6 +26,8 @@ const socials = [
             href={s.href}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={s.label}
+            title={s.label}
             class="grid h-10 w-10 place-items-center rounded-full border border-lav-100/25 text-xs font-bold transition-colors hover:border-honey-soft hover:text-honey-soft"
           >
             {s.label.slice(0, 2)}
@@ -73,9 +75,12 @@ const socials = [
   <div class="border-t border-lav-100/10">
     <div class="wrap flex flex-col items-center justify-between gap-3 py-6 text-xs text-lav-200/70 sm:flex-row">
       <p>© {year} {SITE.name}. Wszystkie prawa zastrzeżone.</p>
-      <p class="flex items-center gap-1.5">
-        Uprawiane z miłości do fioletu <Sprig class="h-4 w-3 text-lav-300" />
-      </p>
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+        <a href="/polityka-prywatnosci" class="transition-colors hover:text-white">Polityka prywatności</a>
+        <p class="flex items-center gap-1.5">
+          Uprawiane z miłości do fioletu <Sprig class="h-4 w-3 text-lav-300" />
+        </p>
+      </div>
     </div>
   </div>
 </footer>

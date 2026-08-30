@@ -1,0 +1,6 @@
+# Skopiuj jako .dev.vars do lokalnego testowania przez Cloudflare Pages/Wrangler.
+RESEND_API_KEY=re_xxxxxxxxx
+RESEND_FROM=Lawendowe Poletko <formularz@lawendowepoletko.pl>
+CONTACT_EMAIL=kontakt@lawendowepoletko.pl
+# Opcjonalnie: segment Resend dla zapisów na sezon i kawiarnię.
+RESEND_SEGMENT_ID=

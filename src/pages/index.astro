@@ -4,6 +4,7 @@ import Base from "../layouts/Base.astro";
 import FieldArt from "../components/FieldArt.astro";
 import Sprig from "../components/Sprig.astro";
 import { SITE } from "../data/site";
+import LeadForm from "../components/LeadForm.astro";
 
 const articles = (await getCollection("articles"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -200,6 +201,35 @@ const facts = [
     </div>
   </section>
 
+  <!-- ── KAWIARNIA 2027 ──────────────────────────────── -->
+  <section class="overflow-hidden bg-cream/70 py-20 sm:py-28">
+    <div class="wrap grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+      <div>
+        <p class="kicker text-lav-500" data-reveal>Nowy rozdział · 2027</p>
+        <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+          Kawiarnia, która pachnie <em class="text-lav-500">lawendą i latem.</em>
+        </h2>
+        <p class="mt-6 max-w-xl leading-relaxed text-inksoft" data-reveal>
+          W 2027 roku chcemy stworzyć na Poletku miejsce na spokojną kawę, sezonowe smaki i spotkania blisko natury.
+          Pokazujemy ten proces od pierwszych pomysłów — bez składania obietnic, których nie możemy jeszcze potwierdzić.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4" data-reveal>
+          <a href="/kawiarnia" class="btn btn-lav">Poznaj plany kawiarni <span aria-hidden="true">→</span></a>
+          <a href="/kontakt" class="btn btn-outline">Porozmawiajmy o współpracy</a>
+        </div>
+      </div>
+      <div class="relative" data-reveal data-reveal-delay="1">
+        <div class="overflow-hidden rounded-[2rem] shadow-soft">
+          <FieldArt variant="noon" class="h-80 w-full sm:h-[28rem]" />
+        </div>
+        <div class="card absolute -bottom-6 left-6 right-6 p-5 sm:left-10 sm:right-auto sm:max-w-xs">
+          <small class="text-xs font-bold uppercase tracking-[0.16em] text-honey">Lista zainteresowanych</small>
+          <p class="mt-2 text-sm leading-relaxed text-inksoft">Pierwsi dowiedzą się o terminie otwarcia i wydarzeniach.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── PORADNIK ─────────────────────────────────────── -->
   <section class="bg-lav-50/70 py-20 sm:py-28">
     <div class="wrap">
@@ -248,11 +278,14 @@ const facts = [
         <em class="text-lav-300">zrobi się fioletowe.</em>
       </h2>
       <p class="mx-auto mt-5 max-w-xl leading-relaxed text-lav-100/90" data-reveal>
-        Obserwuj nasze profile — pokazujemy pole na bieżąco: od pierwszych kłosów po zbiory. Newsletter uruchomimy
-        przed sezonem 2027.
+        Zostaw e-mail — damy znać o pełni kwitnienia, wydarzeniach, produktach i postępach kawiarni. Bez częstych
+        wiadomości i bez przekazywania adresu innym firmom.
       </p>
+      <div class="mx-auto mt-8 max-w-xl rounded-[1.5rem] bg-paper p-6 text-left text-ink shadow-soft sm:p-8" data-reveal>
+        <LeadForm mode="season" compact />
+      </div>
       <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal>
-        <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-honey">Instagram ↗</a>
+        <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Instagram ↗</a>
         <a href={SITE.socials.facebook} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Facebook ↗</a>
         <a href={SITE.socials.tiktok} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">TikTok ↗</a>
       </div>

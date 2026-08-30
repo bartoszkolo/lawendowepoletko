@@ -1,0 +1,167 @@
+---
+interface Props {
+  mode?: "contact" | "season" | "cafe";
+  compact?: boolean;
+  class?: string;
+}
+
+const { mode = "contact", compact = false, class: className = "" } = Astro.props;
+
+const copy = {
+  contact: {
+    button: "Wyślij wiadomość",
+    success: "Dziękujemy! Wiadomość dotarła — odezwiemy się w ciągu 1–2 dni.",
+  },
+  season: {
+    button: "Powiadom mnie",
+    success: "Gotowe! Damy znać o kwitnieniu, wydarzeniach i otwarciu sezonu.",
+  },
+  cafe: {
+    button: "Dołączam do listy",
+    success: "Dziękujemy! Będziesz wśród pierwszych osób, które poznają plany kawiarni.",
+  },
+}[mode];
+---
+
+<form class:list={["lead-form", className]} data-lead-form method="post" action="/api/lead" novalidate>
+  <input type="hidden" name="mode" value={mode} />
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label>Nie wypełniaj tego pola <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class:list={["grid gap-4", mode === "contact" && "sm:grid-cols-2"]}>
+    <label class="grid gap-2 text-sm font-bold">
+      {mode === "contact" ? "Imię i nazwisko" : "Imię"}
+      <input
+        class="rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100"
+        type="text"
+        name="name"
+        autocomplete="name"
+        required={mode === "contact"}
+        maxlength="80"
+      />
+    </label>
+    <label class="grid gap-2 text-sm font-bold">
+      E-mail
+      <input
+        class="rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100"
+        type="email"
+        name="email"
+        autocomplete="email"
+        inputmode="email"
+        required
+        maxlength="160"
+      />
+    </label>
+
+    {mode === "contact" && (
+      <>
+        <label class="grid gap-2 text-sm font-bold">
+          Telefon <span class="font-normal text-inksoft">(opcjonalnie)</span>
+          <input
+            class="rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100"
+            type="tel"
+            name="phone"
+            autocomplete="tel"
+            maxlength="40"
+          />
+        </label>
+        <label class="grid gap-2 text-sm font-bold">
+          Temat
+          <select name="topic" class="rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100">
+            <option>Wizyta na polu</option>
+            <option>Sesja zdjęciowa</option>
+            <option>Produkty lawendowe</option>
+            <option>Kawiarnia 2027</option>
+            <option>Warsztaty lub współpraca</option>
+            <option>Inny temat</option>
+          </select>
+        </label>
+        <label class="grid gap-2 text-sm font-bold sm:col-span-2">
+          Wiadomość
+          <textarea
+            class="min-h-36 resize-y rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100"
+            name="message"
+            required
+            minlength="10"
+            maxlength="3000"
+          ></textarea>
+        </label>
+      </>
+    )}
+
+    {mode === "cafe" && (
+      <label class="grid gap-2 text-sm font-bold">
+        Co interesuje Cię najbardziej?
+        <select name="topic" class="rounded-xl border border-lav-900/15 bg-white px-4 py-3.5 font-normal text-ink outline-none transition focus:border-lav-500 focus:ring-4 focus:ring-lav-100">
+          <option>Kawiarnia i termin otwarcia</option>
+          <option>Warsztaty lawendowe</option>
+          <option>Wydarzenia i degustacje</option>
+          <option>Oferta dla rodzin</option>
+        </select>
+      </label>
+    )}
+  </div>
+
+  <label class="mt-4 flex items-start gap-3 text-xs leading-relaxed text-inksoft">
+    <input class="mt-1 h-4 w-4 shrink-0 accent-lav-600" type="checkbox" name="consent" required />
+    <span>
+      {mode === "contact"
+        ? "Zgadzam się na wykorzystanie danych w celu odpowiedzi na wiadomość."
+        : "Chcę otrzymywać wiadomości o sezonie, wydarzeniach, produktach i kawiarni. Zapis mogę wycofać w każdej chwili."}
+      Szczegóły w <a href="/polityka-prywatnosci" class="font-bold text-lav-700 underline underline-offset-2">polityce prywatności</a>.
+    </span>
+  </label>
+
+  <div class:list={["mt-5 flex gap-4", compact ? "flex-col sm:flex-row sm:items-center" : "flex-col items-start sm:flex-row sm:items-center"]}>
+    <button class="btn btn-honey min-w-44" type="submit">{copy.button}</button>
+    <p class="text-sm text-inksoft" data-form-status aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-lead-form]")) {
+    if (form.dataset.ready === "true") continue;
+    form.dataset.ready = "true";
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>("[data-form-status]");
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!form.reportValidity() || !status || !button) return;
+
+      const success = {
+        contact: "Dziękujemy! Wiadomość dotarła — odezwiemy się w ciągu 1–2 dni.",
+        season: "Gotowe! Damy znać o kwitnieniu, wydarzeniach i otwarciu sezonu.",
+        cafe: "Dziękujemy! Będziesz wśród pierwszych osób, które poznają plany kawiarni.",
+      };
+
+      button.disabled = true;
+      button.textContent = "Wysyłamy…";
+      status.textContent = "";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.message || "Nie udało się wysłać formularza.");
+        const mode = (form.elements.namedItem("mode") as HTMLInputElement).value as keyof typeof success;
+        status.textContent = success[mode];
+        status.className = "text-sm font-bold text-lav-700";
+        form.reset();
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : "Nie udało się wysłać. Spróbuj ponownie później.";
+        status.className = "text-sm font-bold text-red-700";
+      } finally {
+        button.disabled = false;
+        button.textContent = form.dataset.buttonLabel || button.textContent?.replace("Wysyłamy…", "Wyślij") || "Wyślij";
+      }
+    });
+
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (button) form.dataset.buttonLabel = button.textContent || "Wyślij";
+  }
+</script>

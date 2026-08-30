@@ -66,4 +66,13 @@ const isActive = (href: string) => href === "/" ? current === "/" : current.star
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
   });
+
+  addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.body.classList.contains("menu-open")) {
+      document.body.classList.remove("menu-open");
+      toggle?.setAttribute("aria-expanded", "false");
+      toggle?.setAttribute("aria-label", "Otwórz menu");
+      toggle?.focus();
+    }
+  });
 </script>
