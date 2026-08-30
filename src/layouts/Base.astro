@@ -10,9 +10,11 @@ interface Props {
   path?: string;
   ogType?: "website" | "article";
   schema?: Record<string, unknown>[];
+  /** Strony bez ciemnego hero u góry potrzebują headera od razu na jasnym tle */
+  solidHeader?: boolean;
 }
 
-const { title, description, path = "", ogType = "website", schema = [] } = Astro.props;
+const { title, description, path = "", ogType = "website", schema = [], solidHeader = false } = Astro.props;
 const canonical = new URL(path, Astro.site);
 const ogImage = new URL("/og.jpg", Astro.site);
 
@@ -73,7 +75,7 @@ const baseSchema = {
     {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify([baseSchema, ...schema])} />}
     {schema.length === 0 && <script type="application/ld+json" set:html={JSON.stringify(baseSchema)} />}
   </head>
-  <body class="bg-paper font-sans text-ink antialiased">
+  <body class:list={["bg-paper font-sans text-ink antialiased", solidHeader && "header-solid"]}>
     <a
       href="#tresc"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-lav-700 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"

@@ -184,6 +184,13 @@ body {
   box-shadow: 0 10px 30px -18px rgb(38 34 51 / 0.35);
   backdrop-filter: blur(10px);
 }
+/* strony bez ciemnego hero (artykuł, 404): header od razu czytelny na jasnym tle */
+.header-solid .site-header {
+  background: rgb(250 247 241 / 0.95);
+  color: var(--color-ink);
+  box-shadow: 0 10px 30px -18px rgb(38 34 51 / 0.35);
+  backdrop-filter: blur(10px);
+}
 .menu-open .site-header {
   color: #fff;
   background: transparent;

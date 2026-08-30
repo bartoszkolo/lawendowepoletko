@@ -24,8 +24,8 @@ const p = palettes[variant];
     </linearGradient>
   </defs>
   <rect width="480" height="320" fill={`url(#${uid}-sky)`}></rect>
-  <circle cx={variant === "dusk" ? 356 : 130} cy="86" r="34" fill={p.sun} opacity="0.9"></circle>
-  <circle cx={variant === "dusk" ? 356 : 130} cy="86" r="52" fill={p.sun} opacity="0.25"></circle>
+  <circle cx={variant === "dawn" ? 130 : 356} cy="86" r="34" fill={p.sun} opacity="0.9"></circle>
+  <circle cx={variant === "dawn" ? 130 : 356} cy="86" r="52" fill={p.sun} opacity="0.25"></circle>
   {/* rzędy w perspektywie */}
   <rect y="150" width="480" height="170" fill={p.field}></rect>
   <path d="M0 176 C 120 164, 360 164, 480 176 L480 186 C 360 174, 120 174, 0 186 Z" fill={p.rows[0]} opacity="0.9"></path>
