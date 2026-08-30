@@ -1,0 +1,52 @@
+---
+// Ilustracja pola lawendy (SVG) — warstwy rzędów, słońce, gałązki.
+// `variant` zmienia porę dnia / paletę. `uid` zapewnia unikalne id gradientów.
+interface Props {
+  variant?: "dawn" | "noon" | "dusk";
+  class?: string;
+}
+const { variant = "dawn", class: cls = "" } = Astro.props;
+const uid = `lav-${variant}-${Math.random().toString(36).slice(2, 8)}`;
+
+const palettes = {
+  dawn: { skyTop: "#f3f0f8", skyMid: "#d9cdf0", field: "#6b5d93", rows: ["#7d6da6", "#57497c", "#443b62"], sun: "#e5c98a" },
+  noon: { skyTop: "#eef4f0", skyMid: "#d7e3d2", field: "#8d7bb2", rows: ["#9d8dc0", "#6b5d93", "#57497c"], sun: "#f2e3b8" },
+  dusk: { skyTop: "#f7ead6", skyMid: "#e3bfa0", field: "#57497c", rows: ["#6b5d93", "#443b62", "#322b47"], sun: "#dfa54f" },
+};
+const p = palettes[variant];
+---
+
+<svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid slice" class={cls} aria-hidden="true" role="presentation">
+  <defs>
+    <linearGradient id={`${uid}-sky`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color={p.skyTop}></stop>
+      <stop offset="1" stop-color={p.skyMid}></stop>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="320" fill={`url(#${uid}-sky)`}></rect>
+  <circle cx={variant === "dusk" ? 356 : 130} cy="86" r="34" fill={p.sun} opacity="0.9"></circle>
+  <circle cx={variant === "dusk" ? 356 : 130} cy="86" r="52" fill={p.sun} opacity="0.25"></circle>
+  {/* rzędy w perspektywie */}
+  <rect y="150" width="480" height="170" fill={p.field}></rect>
+  <path d="M0 176 C 120 164, 360 164, 480 176 L480 186 C 360 174, 120 174, 0 186 Z" fill={p.rows[0]} opacity="0.9"></path>
+  <path d="M0 204 C 140 188, 340 188, 480 204 L480 218 C 340 202, 140 202, 0 218 Z" fill={p.rows[1]} opacity="0.9"></path>
+  <path d="M0 240 C 150 218, 330 218, 480 240 L480 260 C 330 238, 150 238, 0 260 Z" fill={p.rows[2]} opacity="0.95"></path>
+  <path d="M0 284 C 160 254, 320 254, 480 284 L480 320 L0 320 Z" fill={p.rows[2]}></path>
+  {/* gałązki na pierwszym planie */}
+  <g stroke={p.rows[2]} stroke-width="3" stroke-linecap="round" fill={p.rows[2]}>
+    <g transform="translate(52 208) rotate(-8)">
+      <path d="M0 84 V 18" fill="none"></path>
+      <ellipse cx="-7" cy="14" rx="8" ry="5" transform="rotate(-24 -7 14)"></ellipse>
+      <ellipse cx="7" cy="14" rx="8" ry="5" transform="rotate(24 7 14)"></ellipse>
+      <ellipse cx="-6" cy="0" rx="8" ry="5" transform="rotate(-20 -6 0)"></ellipse>
+      <ellipse cx="6" cy="0" rx="8" ry="5" transform="rotate(20 6 0)"></ellipse>
+      <ellipse cx="0" cy="-12" rx="7" ry="5.5"></ellipse>
+    </g>
+    <g transform="translate(432 228) rotate(7)">
+      <path d="M0 96 V 22" fill="none"></path>
+      <ellipse cx="-7" cy="18" rx="8" ry="5" transform="rotate(-24 -7 18)"></ellipse>
+      <ellipse cx="7" cy="18" rx="8" ry="5" transform="rotate(24 7 18)"></ellipse>
+      <ellipse cx="0" cy="-8" rx="7" ry="5.5"></ellipse>
+    </g>
+  </g>
+</svg>

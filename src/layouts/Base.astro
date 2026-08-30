@@ -1,0 +1,109 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogType?: "website" | "article";
+  schema?: Record<string, unknown>[];
+}
+
+const { title, description, path = "", ogType = "website", schema = [] } = Astro.props;
+const canonical = new URL(path, Astro.site);
+const ogImage = new URL("/og.jpg", Astro.site);
+
+const baseSchema = {
+  "@context": "https://schema.org",
+  "@type": "TouristAttraction",
+  name: SITE.name,
+  description: "Rodzinne pole lawendy o powierzchni hektara w Skrzetuszewie. Zwiedzanie w sezonie kwitnienia, sesje zdjęciowe i produkty prosto z pola.",
+  url: `https://${SITE.domain}/`,
+  telephone: SITE.phoneIntl,
+  email: SITE.email,
+  image: `https://${SITE.domain}/og.jpg`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: SITE.street,
+    postalCode: SITE.postalCode,
+    addressLocality: SITE.locality,
+    addressRegion: SITE.region,
+    addressCountry: "PL",
+  },
+  hasMap: SITE.mapUrl,
+  sameAs: Object.values(SITE.socials),
+};
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#faf7f1" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;700&display=swap"
+    />
+
+    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify([baseSchema, ...schema])} />}
+    {schema.length === 0 && <script type="application/ld+json" set:html={JSON.stringify(baseSchema)} />}
+  </head>
+  <body class="bg-paper font-sans text-ink antialiased">
+    <a
+      href="#tresc"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-lav-700 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white"
+    >
+      Przejdź do treści
+    </a>
+    <Header />
+    <main id="tresc">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const revealables = document.querySelectorAll("[data-reveal]");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+        );
+        revealables.forEach((el) => io.observe(el));
+      } else {
+        revealables.forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

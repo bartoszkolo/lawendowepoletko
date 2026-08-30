@@ -1,0 +1,130 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Sprig from "../components/Sprig.astro";
+import { SITE } from "../data/site";
+
+const questions = [
+  {
+    q: "Kiedy najlepiej przyjechać?",
+    a: "Najpiękniejszy moment przypada zwykle na przełom czerwca i lipca, ale dokładny termin zależy od pogody. Przed wyjazdem sprawdź aktualny komunikat na stronie lub Facebooku.",
+  },
+  {
+    q: "Czy można robić zdjęcia?",
+    a: "Pamiątkowe zdjęcia podczas wizyty są mile widziane. Zasady profesjonalnych i komercyjnych sesji opisujemy na osobnej stronie.",
+  },
+  {
+    q: "Czy można zrywać lawendę?",
+    a: "Nie zrywaj kwiatów bez zgody gospodarzy. W sezonie pytaj o możliwość zakupu świeżych bukietów prosto z pola.",
+  },
+  {
+    q: "Jak przygotować się do wizyty?",
+    a: "Pole jest mocno nasłonecznione. Zabierz wodę, nakrycie głowy, krem z filtrem i wygodne obuwie. Między kwiatami pracują pszczoły i trzmiele.",
+  },
+];
+
+const facts = [
+  { kicker: "Adres", title: SITE.street, text: `${SITE.postalCode} ${SITE.locality}, woj. wielkopolskie`, cta: { href: SITE.mapUrl, label: "Wyznacz trasę ↗", external: true } },
+  { kicker: "Kontakt", title: SITE.phoneDisplay, text: "W sezonie dużo czasu spędzamy na polu. Jeśli nie odbieramy, spróbuj ponownie później.", cta: { href: SITE.phoneHref, label: "Zadzwoń →", external: false } },
+  { kicker: "Okolica", title: "2 km od Lednicy", text: "Dobry przystanek podczas wycieczki po Gnieźnie, Lednicy i Szlaku Piastowskim." },
+  { kicker: "Płatności", title: "Kartą", text: "Na miejscu możesz wygodnie zapłacić kartą za dostępne produkty i usługi." },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: questions.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<Base
+  title="Odwiedź pole lawendowe pod Gnieznem | Lawendowe Poletko"
+  description="Zaplanuj wizytę na Lawendowym Poletku w Skrzetuszewie. Sprawdź dojazd, sezon kwitnienia, płatności i najważniejsze informacje przed przyjazdem."
+  path="/odwiedz"
+  schema={[faqSchema]}
+>
+  <PageHero eyebrow="Zaplanuj wizytę" lead="Hektar fioletu w Skrzetuszewie, zaledwie 2 km od Pól Lednickich. Zanim ruszysz w drogę, sprawdź aktualny status sezonu.">
+    Pole lawendowe <em class="text-lav-200">pod Gnieznem.</em>
+  </PageHero>
+
+  <section class="wrap py-16 sm:py-24">
+    <p class="chip border border-lav-300 bg-lav-50 text-lav-700" data-reveal>
+      <span class="pulse-dot" aria-hidden="true"></span>
+      Status sezonu: przygotowujemy sezon 2027 — śledź nas w social mediach
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        facts.map((f, i) => (
+          <article class="card flex flex-col p-7" data-reveal data-reveal-delay={String(i + 1)}>
+            <small class="text-xs font-bold uppercase tracking-[0.16em] text-honey">{f.kicker}</small>
+            <h2 class="mt-2 font-display text-2xl">{f.title}</h2>
+            <p class="mt-2.5 text-sm leading-relaxed text-inksoft">{f.text}</p>
+            {f.cta && (
+              <a
+                href={f.cta.href}
+                class="text-link mt-auto pt-5"
+                {...("external" in f.cta && f.cta.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                {f.cta.label}
+              </a>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-lav-700 py-16 text-white sm:py-20">
+    <div class="wrap grid items-center gap-8 lg:grid-cols-[auto_1fr_auto]">
+      <Sprig class="hidden h-24 w-20 text-lav-400 lg:block" />
+      <div>
+        <p class="kicker text-lav-300">Nowość w przygotowaniu</p>
+        <h2 class="mt-3 font-display text-3xl leading-tight sm:text-4xl">
+          Warsztaty <em class="text-lav-300">w sezonie 2027.</em>
+        </h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-lav-100/90">
+          Chcemy zaprosić Was nie tylko na spacer, ale też do wspólnego poznawania lawendy. Forma zajęć, terminy i
+          zasady udziału są jeszcze w przygotowaniu — opublikujemy je, gdy dopracujemy cały program.
+        </p>
+      </div>
+      <a href={SITE.socials.facebook} target="_blank" rel="noopener noreferrer" class="btn btn-honey shrink-0">
+        Bądź na bieżąco ↗
+      </a>
+    </div>
+  </section>
+
+  <section class="wrap py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+      <div>
+        <p class="kicker text-lav-500" data-reveal>Przed przyjazdem</p>
+        <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+          Najważniejsze <em class="text-lav-500">pytania i odpowiedzi.</em>
+        </h2>
+        <p class="mt-6 leading-relaxed text-inksoft" data-reveal>
+          Nie znalazłeś odpowiedzi? Zadzwoń — chętnie opowiemy o polu, sezonie i okolicy.
+        </p>
+        <a href={SITE.phoneHref} class="btn btn-lav mt-7" data-reveal>Zadzwoń: {SITE.phoneDisplay}</a>
+      </div>
+      <div class="space-y-4">
+        {
+          questions.map((item, i) => (
+            <details class="faq-item card group px-7 py-5" data-reveal data-reveal-delay={String((i % 3) + 1)}>
+              <summary class="font-display text-lg text-ink sm:text-xl">
+                {item.q}
+                <span class="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-lav-100 text-lav-600" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <p class="mt-3 max-w-2xl text-sm leading-relaxed text-inksoft">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,78 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import FieldArt from "../components/FieldArt.astro";
+import Sprig from "../components/Sprig.astro";
+---
+
+<Base
+  title="Nasza historia — pole lawendy w Skrzetuszewie | Lawendowe Poletko"
+  description="Poznaj rodzinne gospodarstwo Lawendowe Poletko — hektar lawendy w Skrzetuszewie niedaleko Gniezna i Lednicy. Uprawa, która stała się rodzinną opowieścią."
+  path="/o-nas"
+>
+  <PageHero eyebrow="Rodzinne gospodarstwo" lead="Lawendowe Poletko wyrosło z ogrodniczej pasji i miłości do fioletu. Dziś na hektarze ziemi tworzymy miejsce, do którego chce się wracać.">
+    Zaczęło się <em class="text-lav-200">od kilku rzędów.</em>
+  </PageHero>
+
+  <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+    <div class="relative">
+      <div class="overflow-hidden rounded-[2rem] shadow-soft">
+        <FieldArt variant="dawn" class="h-80 w-full sm:h-[26rem]" />
+      </div>
+      <div class="card absolute -bottom-6 right-6 flex items-center gap-3 px-5 py-4 sm:right-10">
+        <Sprig class="h-9 w-7 text-lav-500" />
+        <div>
+          <small class="block text-xs uppercase tracking-[0.14em] text-inksoft">Skrzetuszewo</small>
+          <strong class="font-display text-lg">Od 2016 roku</strong>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="kicker text-lav-500" data-reveal>Nasza historia</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+        Uprawa, która stała się <em class="text-lav-500">rodzinną opowieścią.</em>
+      </h2>
+      <div class="mt-6 space-y-4 leading-relaxed text-inksoft" data-reveal>
+        <p>
+          Pierwsze rzędy lawendy pojawiły się tutaj w 2016 roku. Z czasem poletko rosło, a wraz z nim rosła wiedza,
+          doświadczenie i liczba osób, które chciały zobaczyć fioletowe pole na własne oczy.
+        </p>
+        <p>
+          Każdy sezon wygląda trochę inaczej. Pogoda wyznacza rytm pracy, pszczoły pojawiają się razem z pierwszymi
+          kwiatami, a moment zbiorów kończy krótkie, intensywne lato. To właśnie prawdziwość tego miejsca chcemy
+          pokazywać.
+        </p>
+      </div>
+      <blockquote class="mt-8 border-l-4 border-lav-300 pl-6 font-display text-xl italic leading-relaxed text-lav-700" data-reveal>
+        „Nie tworzymy dekoracji przypominającej naturę. To natura tworzy tutaj wszystko."
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="bg-cream/60 py-20 sm:py-24">
+    <div class="wrap">
+      <p class="kicker text-lav-500" data-reveal>W co wierzymy</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+        Trzy wartości <em class="text-lav-500">naszego pola.</em>
+      </h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          [
+            ["01", "Autentycznie", "Prawdziwe pole, prawdziwa praca i wiedza zdobywana sezon po sezonie."],
+            ["02", "Lokalnie", "Wielkopolska ziemia, rodzinne gospodarstwo i produkty prosto z uprawy."],
+            ["03", "Z szacunkiem", "Do roślin, zapylaczy, krajobrazu i ludzi, którzy nas odwiedzają."],
+          ].map(([no, title, text], i) => (
+            <article class="card p-8" data-reveal data-reveal-delay={String(i + 1)}>
+              <span class="font-display text-4xl italic text-lav-300">{no}</span>
+              <h3 class="mt-4 font-display text-2xl">{title}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-inksoft">{text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mt-14 text-center" data-reveal>
+        <a href="/odwiedz" class="btn btn-lav">Odwiedź nas na polu <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,261 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import FieldArt from "../components/FieldArt.astro";
+import Sprig from "../components/Sprig.astro";
+import { SITE } from "../data/site";
+
+const articles = (await getCollection("articles"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const experiences = [
+  {
+    href: "/odwiedz",
+    no: "01",
+    kicker: "Spacer i odpoczynek",
+    title: "Odwiedź pole",
+    text: "Wszystko, co warto wiedzieć przed przyjazdem — sezon, dojazd i zasady.",
+    variant: "dawn" as const,
+  },
+  {
+    href: "/sesje",
+    no: "02",
+    kicker: "Plener pod Gnieznem",
+    title: "Sesje w lawendzie",
+    text: "Przygotowujemy przestrzeń dla rodzin, par, marek i fotografów.",
+    variant: "dusk" as const,
+  },
+  {
+    href: "/produkty",
+    no: "03",
+    kicker: "Zapach na dłużej",
+    title: "Prosto z pola",
+    text: "Sadzonki, bukiety, olejek lawendowy i hydrolat — w rytmie sezonu.",
+    variant: "noon" as const,
+  },
+];
+
+const marqueeWords = ["zapach lata", "fioletowe rzędy", "brzęczenie pszczół", "złota godzina", "pachnące bukiety", "wielkopolska prowansja"];
+
+const facts = [
+  { value: "1 ha", label: "lawendowego pola" },
+  { value: "17 000", label: "krzewów lawendy" },
+  { value: "2016", label: "od tego roku uprawiamy" },
+  { value: "2 km", label: "od Pól Lednickich" },
+];
+---
+
+<Base
+  title="Lawendowe Poletko — hektar lawendy pod Gnieznem"
+  description="Rodzinne pole lawendy w Skrzetuszewie, 2 km od Pól Lednickich. Zwiedzanie w sezonie kwitnienia, sesje zdjęciowe i produkty prosto z pola."
+  path="/"
+  schema={[{ "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: `https://${SITE.domain}/`, inLanguage: "pl-PL" }]}
+>
+  <!-- ── HERO ─────────────────────────────────────────── -->
+  <section class="hero-home relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden text-white">
+    <div class="relative z-10 wrap flex flex-1 flex-col justify-end pb-10 pt-32">
+      <p class="chip self-start border border-white/25 bg-white/10 backdrop-blur-sm" data-reveal>
+        <span class="pulse-dot" aria-hidden="true"></span>
+        Aktualnie: przygotowujemy sezon 2027
+      </p>
+      <h1
+        class="mt-6 max-w-4xl font-display text-[2.75rem] font-medium leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        Hektar lawendy.
+        <em class="text-lav-200">Milion powodów, by zwolnić.</em>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/90" data-reveal data-reveal-delay="2">
+        Wejdź między fioletowe rzędy, poczuj zapach lata i zobacz, jak lawenda rośnie naprawdę — zaledwie 2 km od Pól
+        Lednickich.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4" data-reveal data-reveal-delay="3">
+        <a href="/odwiedz" class="btn btn-honey">Zaplanuj wizytę <span aria-hidden="true">→</span></a>
+        <a href="/sesje" class="btn btn-ghost">Sesje zdjęciowe</a>
+      </div>
+    </div>
+
+    <div class="relative z-10 border-t border-white/15 bg-lav-900/45 backdrop-blur-md" data-reveal>
+      <dl class="wrap grid grid-cols-2 gap-x-6 gap-y-4 py-6 sm:grid-cols-4">
+        {facts.map((f) => (
+          <div>
+            <dt class="order-last text-xs uppercase tracking-[0.14em] text-lav-200/85">{f.label}</dt>
+            <dd class="font-display text-2xl text-white sm:text-3xl">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── 01 · O MIEJSCE ───────────────────────────────── -->
+  <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+    <div>
+      <p class="kicker text-lav-500" data-reveal>01 · Poznaj nasze miejsce</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+        Mała Prowansja
+        <em class="text-lav-500">w Wielkopolsce.</em>
+      </h2>
+      <p class="mt-6 max-w-xl leading-relaxed text-inksoft" data-reveal>
+        Lawendowe Poletko rozwijamy od 2016 roku — z miłości do roślin, ziemi i prostego życia bliżej natury. Dziś
+        zapraszamy Was do świata, który pielęgnujemy własnymi rękami: od pierwszych wiosennych cięć aż po pachnące
+        zbiory.
+      </p>
+      <a href="/o-nas" class="text-link mt-7" data-reveal>Poznaj naszą historię <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="relative" data-reveal data-reveal-delay="1">
+      <div class="overflow-hidden rounded-[2rem] shadow-soft">
+        <FieldArt variant="dawn" class="h-72 w-full sm:h-96" />
+      </div>
+      <div class="card absolute -bottom-6 left-6 flex items-center gap-3 px-5 py-4 sm:left-10">
+        <Sprig class="h-9 w-7 text-lav-500" />
+        <div>
+          <small class="block text-xs uppercase tracking-[0.14em] text-inksoft">Naturalnie</small>
+          <strong class="font-display text-lg">Prosto z naszego pola</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DOŚWIADCZENIA ────────────────────────────────── -->
+  <section class="bg-cream/60 py-20 sm:py-28">
+    <div class="wrap">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="kicker text-lav-500" data-reveal>Wybierz swój powód</p>
+          <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+            Przyjedź po <em class="text-lav-500">coś więcej.</em>
+          </h2>
+        </div>
+        <p class="max-w-sm leading-relaxed text-inksoft" data-reveal>
+          Lawendowe Poletko to nie tylko widok. To zapach, światło i chwila, którą zabierzesz ze sobą.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          experiences.map((e, i) => (
+            <a href={e.href} class="card group overflow-hidden transition-transform duration-300 hover:-translate-y-1.5" data-reveal data-reveal-delay={String(i + 1)}>
+              <div class="relative">
+                <FieldArt variant={e.variant} class="h-44 w-full transition-transform duration-500 group-hover:scale-105" />
+                <span class="absolute left-5 top-5 font-display text-4xl text-white/90">{e.no}</span>
+              </div>
+              <div class="p-7">
+                <small class="text-xs font-bold uppercase tracking-[0.16em] text-honey">{e.kicker}</small>
+                <h3 class="mt-2 font-display text-2xl">{e.title}</h3>
+                <p class="mt-2.5 text-sm leading-relaxed text-inksoft">{e.text}</p>
+                <span class="text-link mt-5">
+                  Sprawdź szczegóły <span aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MARQUEE ──────────────────────────────────────── -->
+  <div class="marquee border-y border-lav-900/10 bg-paper py-6" aria-hidden="true">
+    <div class="marquee-track font-display text-2xl italic text-lav-400 sm:text-3xl">
+      {[0, 1].map(() => marqueeWords.map((w) => <span class="flex items-center gap-14">… {w}</span>))}
+    </div>
+  </div>
+
+  <!-- ── 02 · LOKALIZACJA ─────────────────────────────── -->
+  <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+    <div class="relative order-last lg:order-first" data-reveal>
+      <div class="overflow-hidden rounded-[2rem] shadow-soft">
+        <FieldArt variant="dusk" class="h-72 w-full sm:h-96" />
+      </div>
+      <div class="absolute -top-6 right-6 rounded-2xl bg-lav-700 px-6 py-4 text-white shadow-soft sm:right-10">
+        <strong class="block font-display text-3xl">2 km</strong>
+        <span class="text-sm text-lav-100/90">od Pól Lednickich</span>
+      </div>
+    </div>
+    <div>
+      <p class="kicker text-lav-500" data-reveal>02 · Skrzetuszewo</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+        Na wyciągnięcie ręki.
+        <em class="text-lav-500">Z dala od pośpiechu.</em>
+      </h2>
+      <p class="mt-6 max-w-xl leading-relaxed text-inksoft" data-reveal>
+        Jesteśmy w sercu Wielkopolski — niedaleko Gniezna, Lednicy i około godziny drogi od Poznania. Połącz wizytę na
+        polu z całym dniem odkrywania Szlaku Piastowskiego.
+      </p>
+      <ul class="mt-7 space-y-3.5" data-reveal>
+        {["Pola Lednickie i jezioro Lednica", "Gniezno — pierwsza stolica Polski", "Jeziora i wielkopolska natura"].map(
+          (item, i) => (
+            <li class="flex items-center gap-4">
+              <span class="font-display text-sm italic text-lav-400">0{i + 1}</span>
+              <span class="border-b border-lav-900/10 pb-3.5">{item}</span>
+            </li>
+          ),
+        )}
+      </ul>
+      <a href={SITE.mapUrl} target="_blank" rel="noopener noreferrer" class="btn btn-lav mt-8" data-reveal>
+        Wyznacz trasę <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── PORADNIK ─────────────────────────────────────── -->
+  <section class="bg-lav-50/70 py-20 sm:py-28">
+    <div class="wrap">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="kicker text-lav-500" data-reveal>Wiedza prosto z pola</p>
+          <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+            Lawendowy <em class="text-lav-500">poradnik.</em>
+          </h2>
+        </div>
+        <a href="/poradnik" class="text-link" data-reveal>
+          Wszystkie artykuły <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          articles.map((article, i) => (
+            <a
+              href={`/poradnik/${article.id}`}
+              class="card group flex flex-col p-7 transition-transform duration-300 hover:-translate-y-1.5"
+              data-reveal
+              data-reveal-delay={String(i + 1)}
+            >
+              <span class="chip self-start bg-lav-100 text-lav-700">{article.data.category}</span>
+              <h3 class="mt-4 font-display text-xl leading-snug transition-colors group-hover:text-lav-600">{article.data.title}</h3>
+              <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-inksoft">{article.data.description}</p>
+              <span class="mt-auto pt-5 text-xs font-bold uppercase tracking-[0.14em] text-lav-400">
+                Czytaj · {article.data.readTime}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOCIAL / NEWSLETTER ──────────────────────────── -->
+  <section class="relative isolate overflow-hidden bg-lav-900 py-20 text-center text-white sm:py-28">
+    <Sprig class="pointer-events-none absolute -left-8 top-8 h-40 w-32 rotate-12 text-lav-700" />
+    <Sprig class="pointer-events-none absolute -right-6 bottom-6 h-48 w-36 -rotate-12 text-lav-700" />
+    <div class="wrap relative">
+      <p class="kicker justify-center text-lav-300 before:hidden" data-reveal>Nie przegap pełni kwitnienia</p>
+      <h2 class="mx-auto mt-4 max-w-2xl font-display text-3xl leading-tight tracking-tight sm:text-4xl lg:text-5xl" data-reveal>
+        Damy znać, gdy pole
+        <em class="text-lav-300">zrobi się fioletowe.</em>
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl leading-relaxed text-lav-100/90" data-reveal>
+        Obserwuj nasze profile — pokazujemy pole na bieżąco: od pierwszych kłosów po zbiory. Newsletter uruchomimy
+        przed sezonem 2027.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4" data-reveal>
+        <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-honey">Instagram ↗</a>
+        <a href={SITE.socials.facebook} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Facebook ↗</a>
+        <a href={SITE.socials.tiktok} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">TikTok ↗</a>
+      </div>
+    </div>
+  </section>
+</Base>

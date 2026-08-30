@@ -1,0 +1,121 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Sprig from "../../components/Sprig.astro";
+import { SITE } from "../../data/site";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const related = (await getCollection("articles"))
+  .filter((a) => a.id !== article.id)
+  .sort((a, b) => {
+    const sameCat = (x: { data: { category: string } }) => (x.data.category === article.data.category ? 0 : 1);
+    return sameCat(a) - sameCat(b) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  })
+  .slice(0, 3);
+
+const fmt = (d: Date) => d.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.data.title,
+    description: article.data.description,
+    datePublished: article.data.pubDate.toISOString(),
+    inLanguage: "pl-PL",
+    author: { "@type": "Organization", name: SITE.name, url: `https://${SITE.domain}/` },
+    publisher: { "@type": "Organization", name: SITE.name, url: `https://${SITE.domain}/` },
+    mainEntityOfPage: new URL(`/poradnik/${article.id}`, Astro.site).toString(),
+    articleSection: article.data.category,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Start", item: `https://${SITE.domain}/` },
+      { "@type": "ListItem", position: 2, name: "Poradnik", item: `https://${SITE.domain}/poradnik` },
+      { "@type": "ListItem", position: 3, name: article.data.title },
+    ],
+  },
+];
+---
+
+<Base
+  title={`${article.data.title} | Lawendowy poradnik`}
+  description={article.data.description}
+  path={`/poradnik/${article.id}`}
+  ogType="article"
+  schema={schema}
+>
+  <article class="wrap max-w-3xl py-16 sm:py-24">
+    <nav aria-label="Ścieżka nawigacji" class="text-xs font-bold uppercase tracking-[0.14em] text-lav-400">
+      <a href="/" class="transition-colors hover:text-lav-600">Start</a>
+      <span class="mx-2" aria-hidden="true">/</span>
+      <a href="/poradnik" class="transition-colors hover:text-lav-600">Poradnik</a>
+      <span class="mx-2" aria-hidden="true">/</span>
+      <span class="text-inksoft">{article.data.category}</span>
+    </nav>
+
+    <header class="mt-8" data-reveal>
+      <h1 class="font-display text-3xl leading-[1.12] tracking-tight sm:text-4xl lg:text-5xl">
+        {article.data.title}
+      </h1>
+      <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-inksoft">
+        <span class="chip bg-lav-100 text-lav-700">{article.data.category}</span>
+        <time datetime={article.data.pubDate.toISOString()}>Opublikowano: {fmt(article.data.pubDate)}</time>
+        <span>Czas czytania: {article.data.readTime}</span>
+      </div>
+      <p class="mt-8 border-l-4 border-honey-soft pl-6 font-display text-lg italic leading-relaxed text-lav-700 sm:text-xl">
+        {article.data.description}
+      </p>
+    </header>
+
+    <div class="prose-lav mt-12" data-reveal>
+      <Content />
+    </div>
+
+    <div class="mt-16 rounded-[2rem] bg-lav-50 p-8 text-center sm:p-10" data-reveal>
+      <Sprig class="mx-auto h-12 w-9 text-lav-500" />
+      <h2 class="mt-4 font-display text-2xl">Chcesz zobaczyć lawendę na żywo?</h2>
+      <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-inksoft">
+        Odwiedź nasze pole w Skrzetuszewie w sezonie kwitnienia — 2 km od Pól Lednickich.
+      </p>
+      <a href="/odwiedz" class="btn btn-lav mt-6">Zaplanuj wizytę <span aria-hidden="true">→</span></a>
+    </div>
+  </article>
+
+  <section class="bg-lav-50/70 py-16 sm:py-20">
+    <div class="wrap">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="font-display text-2xl sm:text-3xl">Czytaj dalej</h2>
+        <a href="/poradnik" class="text-link">Wszystkie artykuły <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        {
+          related.map((a, i) => (
+            <a
+              href={`/poradnik/${a.id}`}
+              class="card group flex flex-col p-7 transition-transform duration-300 hover:-translate-y-1.5"
+              data-reveal
+              data-reveal-delay={String(i + 1)}
+            >
+              <span class="chip w-fit self-start bg-lav-100 text-lav-700">{a.data.category}</span>
+              <h3 class="mt-4 font-display text-lg leading-snug transition-colors group-hover:text-lav-600">{a.data.title}</h3>
+              <span class="mt-auto pt-5 text-xs font-bold uppercase tracking-[0.14em] text-lav-400">Czytaj · {a.data.readTime}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

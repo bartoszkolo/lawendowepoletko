@@ -1,0 +1,81 @@
+---
+import { SITE, NAV } from "../data/site";
+import Sprig from "./Sprig.astro";
+
+const year = new Date().getFullYear();
+const socials = [
+  { href: SITE.socials.facebook, label: "Facebook" },
+  { href: SITE.socials.instagram, label: "Instagram" },
+  { href: SITE.socials.tiktok, label: "TikTok" },
+];
+---
+
+<footer class="bg-lav-900 text-lav-100">
+  <div class="wrap grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4 lg:py-20">
+    <div>
+      <a href="/" class="flex items-center gap-2.5 font-display text-xl text-white">
+        <Sprig class="h-8 w-6 text-lav-300" />
+        Lawendowe Poletko
+      </a>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-lav-200/90">
+        Rodzinne pole lawendy w Skrzetuszewie — hektar fioletu, 2 km od Pól Lednickich.
+      </p>
+      <div class="mt-6 flex gap-3">
+        {socials.map((s) => (
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="grid h-10 w-10 place-items-center rounded-full border border-lav-100/25 text-xs font-bold transition-colors hover:border-honey-soft hover:text-honey-soft"
+          >
+            {s.label.slice(0, 2)}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <nav aria-label="Mapa strony — sekcje">
+      <h2 class="kicker text-lav-300">Odkryj</h2>
+      <ul class="mt-5 space-y-2.5 text-sm font-bold">
+        <li><a href="/" class="transition-colors hover:text-white">Start</a></li>
+        {NAV.map((item) => (
+          <li><a href={item.href} class="transition-colors hover:text-white">{item.label}</a></li>
+        ))}
+        <li><a href="/kontakt" class="transition-colors hover:text-white">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="kicker text-lav-300">Poradnik</h2>
+      <ul class="mt-5 space-y-2.5 text-sm">
+        <li><a href="/poradnik/kiedy-kwitnie-lawenda" class="transition-colors hover:text-white">Kiedy kwitnie lawenda?</a></li>
+        <li><a href="/poradnik/kiedy-przycinac-lawende" class="transition-colors hover:text-white">Kiedy przycinać lawendę?</a></li>
+        <li><a href="/poradnik/jak-sadzic-lawende" class="transition-colors hover:text-white">Jak sadzić lawendę?</a></li>
+        <li><a href="/poradnik" class="mt-3 inline-flex font-bold text-honey-soft hover:text-honey">Wszystkie artykuły →</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="kicker text-lav-300">Kontakt</h2>
+      <ul class="mt-5 space-y-2.5 text-sm">
+        <li>{SITE.street}, {SITE.postalCode} {SITE.locality}</li>
+        <li><a href={SITE.phoneHref} class="font-bold text-white hover:text-honey-soft">{SITE.phoneDisplay}</a></li>
+        <li><a href={`mailto:${SITE.email}`} class="transition-colors hover:text-white">{SITE.email}</a></li>
+        <li class="pt-2">
+          <a href={SITE.mapUrl} target="_blank" rel="noopener noreferrer" class="text-link !text-honey-soft">
+            Wyznacz trasę <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-lav-100/10">
+    <div class="wrap flex flex-col items-center justify-between gap-3 py-6 text-xs text-lav-200/70 sm:flex-row">
+      <p>© {year} {SITE.name}. Wszystkie prawa zastrzeżone.</p>
+      <p class="flex items-center gap-1.5">
+        Uprawiane z miłości do fioletu <Sprig class="h-4 w-3 text-lav-300" />
+      </p>
+    </div>
+  </div>
+</footer>

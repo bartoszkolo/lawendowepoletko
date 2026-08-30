@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lawendowepoletko.pl/sitemap-index.xml

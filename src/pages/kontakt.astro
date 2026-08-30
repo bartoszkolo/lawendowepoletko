@@ -1,0 +1,66 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { SITE } from "../data/site";
+import Sprig from "../components/Sprig.astro";
+
+const channels = [
+  { kicker: "Telefon", value: SITE.phoneDisplay, href: SITE.phoneHref, note: "W sezonie często jesteśmy na polu — jeśli nie odbieramy, spróbuj później." },
+  { kicker: "E-mail", value: SITE.email, href: `mailto:${SITE.email}`, note: "Na wiadomości odpowiadamy zwykle w ciągu 1–2 dni." },
+  { kicker: "Adres", value: `${SITE.street}, ${SITE.locality}`, href: SITE.mapUrl, note: `${SITE.postalCode}, woj. wielkopolskie. Wizyty — w sezonie kwitnienia.`, external: true },
+];
+---
+
+<Base
+  title="Kontakt — pole lawendy Skrzetuszewo | Lawendowe Poletko"
+  description="Skontaktuj się z Lawendowym Poletkiem: telefon 505 027 868, e-mail kontakt@lawendowepoletko.pl, Skrzetuszewo 31c pod Gnieznem."
+  path="/kontakt"
+>
+  <PageHero eyebrow="Porozmawiajmy" lead="Pytania o wizytę, sesje, produkty lub współpracę — wybierz najwygodniejszy kanał.">
+    Jesteśmy bliżej, <em class="text-lav-200">niż myślisz.</em>
+  </PageHero>
+
+  <section class="wrap py-20 sm:py-28">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        channels.map((c, i) => (
+          <article class="card flex flex-col p-8" data-reveal data-reveal-delay={String(i + 1)}>
+            <small class="text-xs font-bold uppercase tracking-[0.16em] text-honey">{c.kicker}</small>
+            <a
+              href={c.href}
+              class="mt-2 break-words font-display text-2xl text-ink transition-colors hover:text-lav-600"
+              {...("external" in c && c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {c.value}
+            </a>
+            <p class="mt-3 text-sm leading-relaxed text-inksoft">{c.note}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 grid items-center gap-10 rounded-[2rem] bg-lav-50 p-8 sm:p-12 lg:grid-cols-2" data-reveal>
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl">Znajdziesz nas też w social mediach</h2>
+        <p class="mt-3 leading-relaxed text-inksoft">
+          Pokazujemy pole na bieżąco: status kwitnienia, zbiory i kulisy gospodarstwa. Napisz w wiadomości na
+          Instagramie lub Facebooku.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4">
+          <a href={SITE.socials.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-lav">Instagram ↗</a>
+          <a href={SITE.socials.facebook} target="_blank" rel="noopener noreferrer" class="btn btn-outline">Facebook ↗</a>
+          <a href={SITE.socials.tiktok} target="_blank" rel="noopener noreferrer" class="btn btn-outline">TikTok ↗</a>
+        </div>
+      </div>
+      <div class="flex justify-center lg:justify-end">
+        <div class="card flex items-center gap-5 px-8 py-6">
+          <Sprig class="h-16 w-12 text-lav-500" />
+          <div>
+            <strong class="font-display text-xl">Do zobaczenia na polu!</strong>
+            <p class="mt-1 text-sm text-inksoft">{SITE.street} · 2 km od Pól Lednickich</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

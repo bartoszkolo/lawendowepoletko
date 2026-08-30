@@ -1,0 +1,20 @@
+---
+// Gałązka lawendy — znak firmowy witryny, dziedziczy kolor przez currentColor
+interface Props {
+  class?: string;
+}
+const { class: cls = "h-8 w-6" } = Astro.props;
+---
+
+<svg viewBox="0 0 24 32" fill="none" class={cls} aria-hidden="true">
+  <path d="M12 31V11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+  <path d="M12 22.5c-3-.5-5.2-2.3-6-5.3 3 .5 5.2 2.3 6 5.3Z" fill="currentColor" opacity="0.75"></path>
+  <path d="M12 24.5c3-.5 5.2-2.3 6-5.3-3 .5-5.2 2.3-6 5.3Z" fill="currentColor" opacity="0.75"></path>
+  <ellipse cx="9" cy="11.5" rx="2.5" ry="1.55" transform="rotate(-26 9 11.5)" fill="currentColor"></ellipse>
+  <ellipse cx="15" cy="11.5" rx="2.5" ry="1.55" transform="rotate(26 15 11.5)" fill="currentColor"></ellipse>
+  <ellipse cx="8.6" cy="7.8" rx="2.5" ry="1.55" transform="rotate(-24 8.6 7.8)" fill="currentColor"></ellipse>
+  <ellipse cx="15.4" cy="7.8" rx="2.5" ry="1.55" transform="rotate(24 15.4 7.8)" fill="currentColor"></ellipse>
+  <ellipse cx="9.6" cy="4.4" rx="2.3" ry="1.5" transform="rotate(-18 9.6 4.4)" fill="currentColor"></ellipse>
+  <ellipse cx="14.4" cy="4.4" rx="2.3" ry="1.5" transform="rotate(18 14.4 4.4)" fill="currentColor"></ellipse>
+  <ellipse cx="12" cy="1.9" rx="2.1" ry="1.6" fill="currentColor"></ellipse>
+</svg>

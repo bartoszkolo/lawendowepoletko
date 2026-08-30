@@ -1,0 +1,65 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import FieldArt from "../components/FieldArt.astro";
+import { SITE } from "../data/site";
+
+const products = [
+  ["01", "Sadzonki lawendy", "Rośliny do ogrodu — odmiany wybierane z doświadczeniem plantatora.", "dawn"],
+  ["02", "Bukiety lawendowe", "Kwiaty ścięte na naszym polu, dostępne w rytmie sezonu.", "noon"],
+  ["03", "Olejek lawendowy", "Intensywny aromat lawendy zamknięty w małej butelce.", "dusk"],
+  ["04", "Hydrolat lawendowy", "Delikatna, lawendowa woda powstająca podczas destylacji.", "dawn"],
+] as const;
+---
+
+<Base
+  title="Produkty lawendowe prosto z pola | Lawendowe Poletko"
+  description="Sadzonki lawendy, bukiety, olejek lawendowy i hydrolat z rodzinnego gospodarstwa w Skrzetuszewie pod Gnieznem. Sklep internetowy już wkrótce."
+  path="/produkty"
+>
+  <PageHero eyebrow="Zabierz lawendę do domu" lead="Uprawiamy, ścinamy i przygotowujemy lawendę w rytmie natury. Oferta zmienia się wraz z sezonem — pytaj o aktualną dostępność.">
+    Prosto <em class="text-lav-200">z naszego pola.</em>
+  </PageHero>
+
+  <section class="wrap py-20 sm:py-28">
+    <div class="grid gap-6 sm:grid-cols-2">
+      {
+        products.map(([no, name, text, variant], i) => (
+          <article class="card group overflow-hidden" data-reveal data-reveal-delay={String((i % 2) + 1)}>
+            <div class="relative">
+              <FieldArt variant={variant} class="h-48 w-full transition-transform duration-500 group-hover:scale-105" />
+              <span class="absolute left-5 top-5 font-display text-4xl text-white/90">{no}</span>
+            </div>
+            <div class="p-7">
+              <small class="text-xs font-bold uppercase tracking-[0.16em] text-honey">Sezonowa dostępność</small>
+              <h2 class="mt-2 font-display text-2xl">{name}</h2>
+              <p class="mt-2.5 text-sm leading-relaxed text-inksoft">{text}</p>
+              <a href={SITE.phoneHref} class="text-link mt-5">
+                Zapytaj o dostępność <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="relative isolate overflow-hidden bg-lav-900 py-20 text-white sm:py-24">
+    <div class="wrap grid items-center gap-8 lg:grid-cols-2">
+      <div>
+        <p class="kicker text-lav-300">Następny rozdział</p>
+        <h2 class="mt-4 font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">
+          Sklep internetowy <em class="text-lav-300">rośnie razem z nami.</em>
+        </h2>
+        <p class="mt-5 max-w-xl leading-relaxed text-lav-100/90">
+          Pracujemy nad miejscem, w którym lawendowe produkty zamówisz przez cały rok. Do tego czasu zapraszamy do
+          kontaktu i na zakupy podczas sezonu.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 lg:justify-end">
+        <a href={SITE.phoneHref} class="btn btn-honey">Zadzwoń: {SITE.phoneDisplay}</a>
+        <a href={`mailto:${SITE.email}`} class="btn btn-ghost">Napisz e-mail</a>
+      </div>
+    </div>
+  </section>
+</Base>

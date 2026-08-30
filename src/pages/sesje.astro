@@ -1,0 +1,90 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import FieldArt from "../components/FieldArt.astro";
+import { SITE } from "../data/site";
+
+const types = [
+  ["01", "Rodziny i dzieci", "Naturalna pamiątka z lata, roczek albo prezent dla bliskich."],
+  ["02", "Pary i śluby", "Sesje narzeczeńskie, poślubne i romantyczne kadry we dwoje."],
+  ["03", "Marki i twórcy", "Zdjęcia produktowe, kampanie, moda, rękodzieło i treści social media."],
+  ["04", "Fotografowie", "Przestrzeń dla własnych klientów i autorskich projektów fotograficznych."],
+];
+
+const steps = [
+  ["01", "Napisz lub zadzwoń", "Powiedz, jaki rodzaj sesji planujesz i ilu będzie uczestników."],
+  ["02", "Ustalimy termin", "Dopasujemy godzinę do kwitnienia, zbiorów i najlepszego światła."],
+  ["03", "Spotkajmy się na polu", "Przyjedź chwilę wcześniej i uszanuj zasady chroniące rośliny."],
+];
+---
+
+<Base
+  title="Sesje zdjęciowe w lawendzie — Gniezno i Poznań | Lawendowe Poletko"
+  description="Plener na polu lawendy w Skrzetuszewie: sesje rodzinne, narzeczeńskie, ślubne i wizerunkowe. Poznaj plany na sezon 2027 i zasady rezerwacji."
+  path="/sesje"
+>
+  <PageHero eyebrow="Naturalny plener" lead="Na sezon 2027 przygotowujemy plener niedaleko Gniezna i Poznania dla fotografów, rodzin, par oraz marek. Szczegóły oferty są jeszcze w opracowaniu.">
+    Sesje zdjęciowe <em class="text-lav-200">w lawendzie.</em>
+  </PageHero>
+
+  <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
+    <div class="overflow-hidden rounded-[2rem] shadow-soft">
+      <FieldArt variant="dusk" class="h-80 w-full sm:h-[26rem]" />
+    </div>
+    <div>
+      <p class="kicker text-lav-500" data-reveal>Najlepsze światło</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+        Zachód słońca robi tu <em class="text-lav-500">całą magię.</em>
+      </h2>
+      <p class="mt-6 leading-relaxed text-inksoft" data-reveal>
+        Najpiękniejsze kadry powstają późnym popołudniem i podczas złotej godziny. Zasady, ceny i sposób rezerwacji
+        sesji na sezon 2027 opublikujemy po dopracowaniu oferty.
+      </p>
+      <a href={SITE.phoneHref} class="btn btn-lav mt-8" data-reveal>Zapytaj o sezon 2027 <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="bg-cream/60 py-20 sm:py-24">
+    <div class="wrap">
+      <p class="kicker text-lav-500" data-reveal>Dla kogo</p>
+      <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+        Cztery sposoby <em class="text-lav-500">na pamiątkę.</em>
+      </h2>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          types.map(([no, title, text], i) => (
+            <article class="card p-7" data-reveal data-reveal-delay={String(i + 1)}>
+              <span class="font-display text-3xl italic text-lav-300">{no}</span>
+              <h3 class="mt-3 font-display text-xl">{title}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-inksoft">{text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
+      <div>
+        <p class="kicker text-lav-500" data-reveal>Jak to działa</p>
+        <h2 class="mt-4 font-display text-3xl leading-tight tracking-tight sm:text-4xl" data-reveal>
+          Prosto, spokojnie, <em class="text-lav-500">bez niespodzianek.</em>
+        </h2>
+      </div>
+      <ol class="space-y-6">
+        {
+          steps.map(([no, title, text], i) => (
+            <li class="card flex gap-6 p-7" data-reveal data-reveal-delay={String(i + 1)}>
+              <span class="font-display text-3xl italic text-lav-300">{no}</span>
+              <div>
+                <h3 class="font-display text-xl">{title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-inksoft">{text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</Base>

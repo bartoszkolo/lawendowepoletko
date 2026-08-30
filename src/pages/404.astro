@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import Sprig from "../components/Sprig.astro";
+---
+
+<Base
+  title="Nie znaleziono strony | Lawendowe Poletko"
+  description="Ta strona nie istnieje. Wróć na pole lawendy — do strony głównej Lawendowego Poletka."
+  path="/404"
+>
+  <section class="wrap grid min-h-[70svh] place-content-center py-24 text-center">
+    <Sprig class="mx-auto h-16 w-12 text-lav-400" />
+    <p class="kicker mt-6 justify-center text-lav-500 before:hidden">Błąd 404</p>
+    <h1 class="mt-4 font-display text-4xl sm:text-5xl">
+      Zgubiłeś ścieżkę <em class="text-lav-500">wśród rzędów.</em>
+    </h1>
+    <p class="mx-auto mt-4 max-w-md leading-relaxed text-inksoft">
+      Tej strony nie ma — ale pole lawendy już tak. Wróć na start albo zajrzyj do poradnika.
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+      <a href="/" class="btn btn-lav">Strona główna</a>
+      <a href="/poradnik" class="btn btn-outline">Lawendowy poradnik</a>
+    </div>
+  </section>
+</Base>
