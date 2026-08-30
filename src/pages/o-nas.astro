@@ -3,6 +3,8 @@ import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import FieldArt from "../components/FieldArt.astro";
 import Sprig from "../components/Sprig.astro";
+import { Image } from "astro:assets";
+import trzmiel from "../assets/foto/trzmiel-lawenda.png";
 ---
 
 <Base
@@ -17,7 +19,15 @@ import Sprig from "../components/Sprig.astro";
   <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
     <div class="relative">
       <div class="overflow-hidden rounded-[2rem] shadow-soft">
-        <FieldArt variant="dawn" class="h-80 w-full sm:h-[26rem]" />
+        <Image
+          src={trzmiel}
+          alt="Trzmiel zbierający nektar z kwiatu lawendy — na polu Lawendowego Poletka pracują setki zapylaczy"
+          widths={[480, 720, 1080]}
+          sizes="(min-width: 1024px) 560px, 90vw"
+          format="webp"
+          loading="lazy"
+          class="h-80 w-full object-cover sm:h-[26rem]"
+        />
       </div>
       <div class="card absolute -bottom-6 right-6 flex items-center gap-3 px-5 py-4 sm:right-10">
         <Sprig class="h-9 w-7 text-lav-500" />

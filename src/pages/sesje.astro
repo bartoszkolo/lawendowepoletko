@@ -1,6 +1,9 @@
 ---
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
+import { Image } from "astro:assets";
+import wianek from "../assets/foto/wianek-portret.png";
+import zachodRzedi from "../assets/foto/wianek-lawendowy.jpg";
 import FieldArt from "../components/FieldArt.astro";
 import { SITE } from "../data/site";
 
@@ -29,7 +32,15 @@ const steps = [
 
   <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
     <div class="overflow-hidden rounded-[2rem] shadow-soft">
-      <FieldArt variant="dusk" class="h-80 w-full sm:h-[26rem]" />
+      <Image
+        src={wianek}
+        alt="Kobieta z lawendowym wiankiem spacerująca między rzędami lawendy na Lawendowym Poletku"
+        widths={[480, 720, 1080]}
+        sizes="(min-width: 1024px) 560px, 90vw"
+        format="webp"
+        loading="lazy"
+        class="h-80 w-full object-cover object-[center_28%] sm:h-[26rem]"
+      />
     </div>
     <div>
       <p class="kicker text-lav-500" data-reveal>Najlepsze światło</p>
@@ -62,6 +73,20 @@ const steps = [
         }
       </div>
     </div>
+  </section>
+
+  <section class="wrap pb-4">
+    <figure class="overflow-hidden rounded-[2rem] shadow-soft" data-reveal>
+      <Image
+        src={zachodRzedi}
+        alt="Zachód słońca nad rzędami lawendy — złota godzina na Lawendowym Poletku"
+        widths={[720, 1080, 1600]}
+        sizes="(min-width: 1152px) 1120px, 90vw"
+        format="webp"
+        loading="lazy"
+        class="h-64 w-full object-cover sm:h-80"
+      />
+    </figure>
   </section>
 
   <section class="wrap py-20 sm:py-28">

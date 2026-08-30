@@ -1,5 +1,8 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import zachod from "../assets/foto/zachod-slonca.png";
+import altanka from "../assets/foto/altanka-lawenda.png";
 import Base from "../layouts/Base.astro";
 import FieldArt from "../components/FieldArt.astro";
 import Sprig from "../components/Sprig.astro";
@@ -107,7 +110,15 @@ const facts = [
     </div>
     <div class="relative" data-reveal data-reveal-delay="1">
       <div class="overflow-hidden rounded-[2rem] shadow-soft">
-        <FieldArt variant="dawn" class="h-72 w-full sm:h-96" />
+        <Image
+          src={zachod}
+          alt="Kłosy lawendy w złotym świetle zachodzącego słońca — pszczoły pracują nad polem Lawendowego Poletka"
+          widths={[480, 720, 1080, 1440]}
+          sizes="(min-width: 1024px) 560px, 90vw"
+          format="webp"
+          loading="lazy"
+          class="h-72 w-full object-cover sm:h-96"
+        />
       </div>
       <div class="card absolute -bottom-6 left-6 flex items-center gap-3 px-5 py-4 sm:left-10">
         <Sprig class="h-9 w-7 text-lav-500" />
@@ -168,7 +179,15 @@ const facts = [
   <section class="wrap grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:gap-16">
     <div class="relative order-last lg:order-first" data-reveal>
       <div class="overflow-hidden rounded-[2rem] shadow-soft">
-        <FieldArt variant="dusk" class="h-72 w-full sm:h-96" />
+        <Image
+          src={altanka}
+          alt="Drewniana altanka pośród kwitnących rzędów lawendy w Skrzetuszewie"
+          widths={[480, 720, 1080, 1440]}
+          sizes="(min-width: 1024px) 560px, 90vw"
+          format="webp"
+          loading="lazy"
+          class="h-72 w-full object-cover sm:h-96"
+        />
       </div>
       <div class="absolute -top-6 right-6 rounded-2xl bg-lav-700 px-6 py-4 text-white shadow-soft sm:right-10">
         <strong class="block font-display text-3xl">2 km</strong>
